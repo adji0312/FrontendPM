@@ -85,7 +85,7 @@
                                 <input type="text" [value]="viewBacklogDev.backlog_status" name="backlog_status"
                                   class="form-control" id="backlog_status" disabled>
                               </div>
-                              <div class="">
+                              <div class="form-group">
                                 <label for="backlog_start">{{ "backlogDev.form.start" | translate }}</label>
                                 <div class="d-flex gap-3">
                                     <input type="text" [value]="viewBacklogDev.backlog_start | date: 'dd MMM yyyy'" name="backlog_start" class="form-control" id="backlog_start" disabled>
@@ -93,9 +93,9 @@
                                     <input type="text" [value]="viewBacklogDev.backlog_end | date: 'dd MMM yyyy'" name="backlog_end" class="form-control" id="backlog_end" disabled>
                                 </div>
                               </div>
-                              <div class="">
-                                <label for="disabledTextInput" class="form-label mb-0">PIC PM</label>
-                                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input">
+                              <div class="form-group">
+                                <label for="pic_PM" class="form-label mb-0">PIC PM</label>
+                                <input type="text" [value]="viewPICPM" name="pic_PM" class="form-control" id="pic_PM" disabled>
                               </div>
                               <div class="">
                                 <label for="backlog_desc">{{ "backlogDev.form.desc" | translate }}</label>

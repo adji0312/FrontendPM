@@ -21,6 +21,21 @@ export class UserService {
     return this.http.post<User>(`${this.baseUrl}/add`, user, {headers: headers});
   }
 
+  getUser(token: any): Observable<any>{
+    const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
+    return this.http.get(`${this.baseUrl}/getuser`, {headers: headers});
+  }
+
+  getAllUsers(token: any): Observable<any>{
+    const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
+    return this.http.get(`${this.baseUrl}/all`, {headers: headers});
+  }
+
+  getUserByRole(role: string, token: any):Observable<any> {
+    const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
+    return this.http.get(`${this.baseUrl}/getByRole/${role}`, {headers: headers});
+  }
+
   updateUser(id:number, user: User, token: any): Observable<User>{
     const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
     return this.http.put<User>(`${this.baseUrl}/update/${id}`, user, {headers: headers});
@@ -36,15 +51,6 @@ export class UserService {
     return this.http.post("http://localhost:8080/login", user, {headers: headers});
   }
 
-  getUser(token: any): Observable<any>{
-    const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
-    return this.http.get("http://localhost:8080/user/getuser", {headers: headers});
-  }
-
-  getAllUsers(token: any): Observable<any>{
-    const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
-    return this.http.get("http://localhost:8080/user/all", {headers: headers});
-  }
   // constructor(private http: HttpClient ) { }
 
   // private baseUrl = `${environment.baseUrl}/user`;

@@ -18,7 +18,12 @@ export class ProjectPicService {
     return this.http.post<ProjectPIC>(`${this.baseUrl}/add/${project_code}/${user_id}`, null, {headers: headers});
   }
 
-  public getProjectPICByProjectCode(project_code: string, token: any): Observable<ProjectPIC[]>{
+  public getProjectPICPM(project_code: string, token:any): Observable<ProjectPIC>{
+    const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
+    return this.http.get<ProjectPIC>(`${this.baseUrl}/getPICPM/${project_code}`, {headers: headers});
+  }
+
+  public getProjectPICDev(project_code: string, token: any): Observable<ProjectPIC[]>{
     const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
     return this.http.get<ProjectPIC[]>(`${this.baseUrl}/getPICDev/${project_code}`, {headers: headers});
   }

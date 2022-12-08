@@ -24,8 +24,12 @@ export class BacklogDevEditComponent implements OnInit {
   editPICDevs!: ProjectPIC[];
   editBacklogDevForm!: FormGroup;
   users!: User[];
+
+  picDev!: User[];
+  picPM!: User[];
+  editPICPM! : ProjectPIC;
+
   public loginuser: any = {};
-  public backlogdev: any = {};
 
   minDate!: Date;
 
@@ -61,7 +65,7 @@ export class BacklogDevEditComponent implements OnInit {
         backlog_status: [{value: '', disabled:true}],
         backlog_start: ['', [Validators.required]],
         backlog_end: ['', [Validators.required]],
-        // pic_PM: ['',Validators.required],
+        pic_PM: ['',Validators.required],
         pic_Devs: this.formBuilder.array([])
     }, {validators: this.dateRangeValidator});
   }
@@ -80,6 +84,16 @@ export class BacklogDevEditComponent implements OnInit {
   }
 
   editBacklogDevelopment(){
+
+    this.userService.getUserByRole("DEV", this.loginuser.token).subscribe(data => {
+      this.picDev = data;
+    });
+
+    this.userService.getUserByRole("PRO LEAD", this.loginuser.token).subscribe(data => {
+      this.picPM =data;
+    })
+
+
     this.editBacklogDevForm.patchValue({
       application: this.editBacklogDev.application,
       backlog_type: this.editBacklogDev.backlog_type,
@@ -100,39 +114,61 @@ export class BacklogDevEditComponent implements OnInit {
       });
     }
 
-    this.projectPICService.getProjectPICByProjectCode(this.editBacklogDev.backlog_code, this.loginuser.token).subscribe(data => {
+    this.projectPICService.getProjectPICDev(this.editBacklogDev.backlog_code, this.loginuser.token).subscribe(data => {
       this.editPICDevs = data;
-
       if(this.editPICDevs.length == 0){
         this.addPICDev();
       }else{
         this.setPicDev(this.editPICDevs);
       }
     });
+
+
+    this.projectPICService.getProjectPICPM(this.editBacklogDev.backlog_code, this.loginuser.token).subscribe(data => {
+      this.editPICPM = data;
+    
+      if(data == null){
+        this.editBacklogDevForm.patchValue({
+          pic_PM: null
+        });
+      }else{
+        this.editBacklogDevForm.patchValue({
+          pic_PM: data.pic_id
+        });
+      }
+    });
   }
 
   onUpdateBacklogDevelopment(){
 
-    var updatePIC: string[] = [];
+    var updatePICDev: string[] = [];
     var existedPIC: string[] = [];
     var countSuccess = 0;
 
     for (let pic of this.pic_Devs.controls) {
-      updatePIC.push(pic.value.pic_Dev);
+      updatePICDev.push(pic.value.pic_Dev);
     }
 
     this.editPICDevs.forEach(function(item){
       existedPIC.push(item.pic_id);
     });
 
-    let missing = existedPIC.filter(item => updatePIC.indexOf(item) == -1);
-
+    let missing = existedPIC.filter(item => updatePICDev.indexOf(item) == -1);
+    
     for (let pic of this.pic_Devs.controls) {
       this.projectPICService.addProjectPIC(this.editBacklogDev.backlog_code, pic.value.pic_Dev, this.loginuser.token).subscribe(
         (response: ProjectPIC) => {
           countSuccess++;
 
           if(countSuccess == this.pic_Devs.length){
+
+            if(this.editPICPM == null){
+              this.projectPICService.addProjectPIC(this.editBacklogDev.backlog_code, this.editBacklogDevForm.value.pic_PM, this.loginuser.token).subscribe();
+            }else{
+              this.projectPICService.deleteProjectPIC(this.editBacklogDev.backlog_code, this.editPICPM.pic_id, this.loginuser.token).subscribe();
+              this.projectPICService.addProjectPIC(this.editBacklogDev.backlog_code, this.editBacklogDevForm.value.pic_PM, this.loginuser.token).subscribe();
+            }
+
 
             for(let deletePIC of missing){
               this.projectPICService.deleteProjectPIC(this.editBacklogDev.backlog_code, deletePIC, this.loginuser.token).subscribe();

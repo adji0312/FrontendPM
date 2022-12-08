@@ -25,7 +25,6 @@ export class BacklogDevelopmentComponent implements OnInit {
 
   editBacklogDev: BacklogDevelopment = new BacklogDevelopment;
   viewBacklogDev: BacklogDevelopment = new BacklogDevelopment;
-
   editBacklogDevForm!: FormGroup;
 
   page: number = 1;
@@ -60,12 +59,21 @@ export class BacklogDevelopmentComponent implements OnInit {
     // });
   }
 
+  checkRole(backlogDev: BacklogDevelopment){
+    
+    if(this.loginuser.user.role.role_name == "SPV DEV"){
+      return true;
+    }else if(this.loginuser.user.role.role_name == "PRO LEAD" && backlogDev.backlog_status == "DEV"){
+      return true;
+    }
+
+    return false;
+  }
 
   onTableDataChange(event: any){
     this.page = event;
     this.getBacklogDevelopment();
   }
-
 
   public onOpenModal(backlogDev: BacklogDevelopment, mode: string): void{
     const button = document.createElement('button');
