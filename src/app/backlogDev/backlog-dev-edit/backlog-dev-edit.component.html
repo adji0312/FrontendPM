@@ -55,8 +55,9 @@
                   <div style="width: 600px;">
                     <div class="form-group">
                       <label for="backlog_status">{{ "backlogDev.form.status" | translate }}</label>
-                      <input type="text" formControlName="backlog_status" name="backlog_status"
-                      class="form-control" id="backlog_status">
+                      <select class="input-group form-select col-10" formControlName="backlog_status">
+                        <option *ngFor="let stat of project_status" [value]="stat.status">{{ stat.status }}</option>
+                      </select>
                     </div>
                     <div class="">
                       <label for="backlog_start">{{ "backlogDev.form.start" | translate }}</label>

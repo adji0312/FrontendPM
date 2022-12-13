@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { LoginAuthService } from 'src/app/login-auth.service';
 import { ProjectPicService } from 'src/app/projectPIC/project-pic.service';
 import { ProjectPIC } from 'src/app/projectPIC/projectPIC';
+import { Status } from 'src/app/TableManagement/project_status/status';
+import { StatusService } from 'src/app/TableManagement/project_status/status.service';
 import { User } from 'src/app/user/user';
 import { UserService } from 'src/app/user/user.service';
 import Swal from 'sweetalert2';
@@ -23,7 +25,9 @@ export class BacklogDevEditComponent implements OnInit {
   editBacklogDev: BacklogDevelopment = new BacklogDevelopment;
   editPICDevs!: ProjectPIC[];
   editBacklogDevForm!: FormGroup;
+
   users!: User[];
+  project_status!: Status[];
 
   picDev!: User[];
   picPM!: User[];
@@ -49,12 +53,15 @@ export class BacklogDevEditComponent implements OnInit {
     private backlogDevService: BacklogDevelopmentService,
     private projectPICService: ProjectPicService,
     private userService: UserService,
+    private statusService: StatusService,
     private formBuilder: FormBuilder,
     private router: Router,
     private authservice: LoginAuthService
     ) {
+
       this.authservice.isLoggedIn();
       this.loginuser = JSON.parse(localStorage.getItem('currentUser') as string);
+
       this.editBacklogDevForm = this.formBuilder.group({
         application: [{value: '', disabled:true}],
         backlog_type: [{value: '', disabled:true}],
@@ -62,19 +69,22 @@ export class BacklogDevEditComponent implements OnInit {
         backlog_bpro: [{value: '', disabled:true}],
         backlog_desc: [{value: '', disabled:true}],
         backlog_kickoff: [{value: '', disabled:true}],
-        backlog_status: [{value: '', disabled:true}],
+        backlog_status: [{value: ''}],
         backlog_start: ['', [Validators.required]],
         backlog_end: ['', [Validators.required]],
         pic_PM: ['',Validators.required],
         pic_Devs: this.formBuilder.array([])
-    }, {validators: this.dateRangeValidator});
+      }, {validators: this.dateRangeValidator});
+
   }
 
   ngOnInit(): void {
     this.editBacklogDev = this.backlogDevService.editBacklogDev;
     this.minDate = new Date(this.editBacklogDev.backlog_kickoff);
+
     this.editBacklogDevelopment();
     this.getUsers();
+    this.getStatus();
   }
 
   private getUsers(){
@@ -83,15 +93,21 @@ export class BacklogDevEditComponent implements OnInit {
     });
   }
 
-  editBacklogDevelopment(){
+  private getStatus(){
+    this.statusService.getStatus(this.loginuser.token).subscribe(data => {
+        this.project_status = data;
+    });
+  }
+
+  private editBacklogDevelopment(){
 
     this.userService.getUserByRole("DEV", this.loginuser.token).subscribe(data => {
       this.picDev = data;
     });
 
     this.userService.getUserByRole("PRO LEAD", this.loginuser.token).subscribe(data => {
-      this.picPM =data;
-    })
+      this.picPM = data;
+    });
 
 
     this.editBacklogDevForm.patchValue({
@@ -156,18 +172,13 @@ export class BacklogDevEditComponent implements OnInit {
     let missing = existedPIC.filter(item => updatePICDev.indexOf(item) == -1);
     
     for (let pic of this.pic_Devs.controls) {
-      this.projectPICService.addProjectPIC(this.editBacklogDev.backlog_code, pic.value.pic_Dev, this.loginuser.token).subscribe(
+      this.projectPICService.addPICDev(this.editBacklogDev.backlog_code, pic.value.pic_Dev, this.loginuser.token).subscribe(
         (response: ProjectPIC) => {
           countSuccess++;
 
           if(countSuccess == this.pic_Devs.length){
 
-            if(this.editPICPM == null){
-              this.projectPICService.addProjectPIC(this.editBacklogDev.backlog_code, this.editBacklogDevForm.value.pic_PM, this.loginuser.token).subscribe();
-            }else{
-              this.projectPICService.deleteProjectPIC(this.editBacklogDev.backlog_code, this.editPICPM.pic_id, this.loginuser.token).subscribe();
-              this.projectPICService.addProjectPIC(this.editBacklogDev.backlog_code, this.editBacklogDevForm.value.pic_PM, this.loginuser.token).subscribe();
-            }
+            this.projectPICService.addPICPM(this.editBacklogDev.backlog_code, this.editBacklogDevForm.value.pic_PM, this.loginuser.token).subscribe();
 
 
             for(let deletePIC of missing){
@@ -206,7 +217,7 @@ export class BacklogDevEditComponent implements OnInit {
         });
     }
 
-      this.closeBacklogDevEdit();
+    this.closeBacklogDevEdit();
   }
 
   get pic_Devs(){
@@ -235,7 +246,6 @@ export class BacklogDevEditComponent implements OnInit {
       for (let i = 0; i < picDevs.length; i++) {
         for (let j = 0; j < this.users.length; j++) {
           if(picDevs[i].pic_id == this.users[j].user_id){
-            // console.log(this.users[j]);
             this.formArray.push(this.formBuilder.group({
               pic_Dev: this.users[j],
             }));
@@ -252,14 +262,11 @@ export class BacklogDevEditComponent implements OnInit {
       }
 
       return this.editBacklogDevForm.setControl("pic_Devs", this.formArray);
-
     });
-
-
   }
 
 
-  public closeBacklogDevEdit(){
+  closeBacklogDevEdit(){
     this.router.navigate(['backlogDevelopment']);
   }
 
