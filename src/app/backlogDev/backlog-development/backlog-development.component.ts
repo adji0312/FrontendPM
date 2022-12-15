@@ -7,6 +7,8 @@ import { BacklogDevelopmentService } from '../backlog-development.service';
 import { BacklogDevelopment } from '../backlogDevelopment';
 import { Router } from '@angular/router';
 import { LoginAuthService } from 'src/app/login-auth.service';
+import { UserService } from 'src/app/user/user.service';
+import { ProjectPicService } from 'src/app/projectPIC/project-pic.service';
 
 @Component({
   selector: 'app-backlog-development',
@@ -20,7 +22,7 @@ export class BacklogDevelopmentComponent implements OnInit {
   users!: User[];
 
   viewPICDevs!: ProjectPIC[];
-  public loginuser: any = {};
+  loginuser: any = {};
   formArray: any;
 
   editBacklogDev: BacklogDevelopment = new BacklogDevelopment;
@@ -46,24 +48,21 @@ export class BacklogDevelopmentComponent implements OnInit {
     this.getBacklogDevelopment();
   }
 
+
   private getBacklogDevelopment(){
     this.realTimeDataSubscription$ = timer(0, 1000)
     .pipe(switchMap(_ => this.backlogDevService.getAllBacklogDevelopment(this.loginuser.token)))
     .subscribe(data => {
       this.backlogDevs = data;
     });
-
-    // this.backlogDevService.getAllBacklogDevelopment()
-    // .subscribe(data => {
-    //   this.backlogDevs = data;
-    // });
   }
 
-  checkRole(backlogDev: BacklogDevelopment){
-    
+
+  checkRole(backlogDev: BacklogDevelopment, index: number){
+
     if(this.loginuser.user.role.role_name == "SPV DEV"){
       return true;
-    }else if(this.loginuser.user.role.role_name == "PRO LEAD" && backlogDev.backlog_status == "DEV"){
+    }else if(this.loginuser.user.role.role_name == "PRO LEAD" && backlogDev.backlog_status != "KIC" && backlogDev.pic_PM == this.loginuser.user.user_id){
       return true;
     }
 
@@ -83,6 +82,7 @@ export class BacklogDevelopmentComponent implements OnInit {
       this.backlogDevService.editBacklogDev = backlogDev;
       this.router.navigate(['/backlogDevEdit'], {skipLocationChange: true});
     }
+
     if(mode === 'view'){
       this.backlogDevService.viewBacklogDev = backlogDev;
       this.router.navigate(['/backlogDevDetail'], {skipLocationChange: true});
@@ -90,4 +90,6 @@ export class BacklogDevelopmentComponent implements OnInit {
 
     button.click();
   }
+
+
 }
