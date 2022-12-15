@@ -1,5 +1,3 @@
-import { User } from "../user/user";
-
 export class BacklogDevelopment{
 
   id!: number;
@@ -16,4 +14,5 @@ export class BacklogDevelopment{
   backlog_status!: string;
   backlog_start!: Date;
   backlog_end!: Date;
+  pic_PM!: string;
 }

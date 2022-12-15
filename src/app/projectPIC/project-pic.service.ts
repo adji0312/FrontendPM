@@ -13,9 +13,14 @@ export class ProjectPicService {
 
   private baseUrl = `${environment.baseUrl}/pic`;
 
-  public addProjectPIC(project_code: string, user_id: string, token: any): Observable<ProjectPIC>{
+  public addPICPM(project_code: string, user_id: string, token: any): Observable<ProjectPIC>{
     const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
-    return this.http.post<ProjectPIC>(`${this.baseUrl}/add/${project_code}/${user_id}`, null, {headers: headers});
+    return this.http.post<ProjectPIC>(`${this.baseUrl}/addPICPM/${project_code}/${user_id}`, null, {headers: headers});
+  }
+
+  public addPICDev(project_code: string, user_id: string, token: any): Observable<ProjectPIC>{
+    const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
+    return this.http.post<ProjectPIC>(`${this.baseUrl}/addPICDev/${project_code}/${user_id}`, null, {headers: headers});
   }
 
   public getProjectPICPM(project_code: string, token:any): Observable<ProjectPIC>{
