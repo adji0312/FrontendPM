@@ -17,7 +17,11 @@ export class SidebarComponent implements OnInit {
   public loginuser: any = {};
   public user: any = {};
 
-  constructor(public translate: TranslateService, private authService: LoginAuthService, private router: Router, private userService: UserService, private toastr: ToastrService) {
+  constructor(
+    public translate: TranslateService, 
+    private authService: LoginAuthService, 
+    private userService: UserService, 
+    private toastr: ToastrService) {
     this.currentstatus = this.authService.getStatus().subscribe(currentstatus => {
       this.currentstatus = currentstatus;
     })
@@ -57,8 +61,7 @@ export class SidebarComponent implements OnInit {
   }
 
   logout(){
-    localStorage.removeItem('currentUser');
-    this.router.navigate(['/login']);
+    this.authService.logout();
     this.toastr.success('You are success logout!', 'Logout');
   }
 
