@@ -29,6 +29,9 @@ export class BacklogDevelopmentComponent implements OnInit {
   viewBacklogDev: BacklogDevelopment = new BacklogDevelopment;
   editBacklogDevForm!: FormGroup;
 
+  picPM: ProjectPIC[] = [];
+  picProLead: ProjectPIC[] = [];
+
   page: number = 1;
   count: number = 0;
   tableSize: number = 8;
@@ -37,6 +40,8 @@ export class BacklogDevelopmentComponent implements OnInit {
 
   constructor(
     private backlogDevService: BacklogDevelopmentService,
+    private userService: UserService,
+    private projectPICService: ProjectPicService,
     private router: Router,
     private authService: LoginAuthService
   ) {
@@ -46,6 +51,7 @@ export class BacklogDevelopmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBacklogDevelopment();
+    this.getPICPM();
   }
 
 
@@ -54,6 +60,13 @@ export class BacklogDevelopmentComponent implements OnInit {
     .pipe(switchMap(_ => this.backlogDevService.getAllBacklogDevelopment(this.loginuser.token)))
     .subscribe(data => {
       this.backlogDevs = data;
+    });
+  }
+
+
+  private getPICPM(){
+    this.userService.getUserByRole("PRO LEAD", this.loginuser.token).subscribe(data => {
+      this.picPM = data;
     });
   }
 
