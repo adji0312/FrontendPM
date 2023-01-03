@@ -1,4 +1,8 @@
 {
+  "login":{
+    "password": "Kata Sandi"
+  },
+
   "user":{
     "add": "Tambah Pengguna",
     "list": "Daftar Pengguna",

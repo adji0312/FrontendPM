@@ -1,4 +1,8 @@
 {
+  "login":{
+    "password": "Password"
+  },
+  
   "user":{
     "add": "Add User",
     "list": "User List",

@@ -10,11 +10,11 @@
         <div class="form-group mb-3 mt-3">
           <div class="d-flex">
             <span class="input-group-text" style="background-color: #f9f8ff;" id="inputGroup-sizing-default"><i class="fa fa-user" style="width: 17px;" aria-hidden="true"></i></span>
-            <input type="text" name="user_id" class="form-control" formControlName="user_id" [(ngModel)]="user.user_id" [ngClass]="{ 'is-invalid' : loginForm.controls['user_id'].touched && loginForm.controls['user_id'].errors}" id="user_id" placeholder="UserID">
+            <input type="text" name="user_id" class="form-control" formControlName="user_id" [(ngModel)]="user.user_id" [ngClass]="{ 'is-invalid' : loginForm.controls['user_id'].touched && loginForm.controls['user_id'].errors}" id="user_id" placeholder="User ID" autocomplete="off">
           </div>
           <div *ngIf="loginForm.controls['user_id'].touched && loginForm.controls['user_id'].errors" class="text-danger">
             <div *ngIf="loginForm.controls['user_id'].touched && loginForm.controls['user_id'].errors['required']">
-                User ID tidak boleh kosong
+                User ID {{ "form.validation_required" | translate }}
             </div>
           </div>
         </div>
@@ -22,11 +22,11 @@
         <div class="form-group mb-4 ">
           <div class="d-flex">
             <span class="input-group-text" style="background-color: #f9f8ff;" id="inputGroup-sizing-default"><i class="fa fa-key" aria-hidden="true"></i></span>
-            <input type="password" name="password" class="form-control" formControlName="password" [(ngModel)]="user.password" [ngClass]="{ 'is-invalid' : loginForm.controls['password'].touched && loginForm.controls['password'].errors}" id="password" placeholder="Password">
+            <input type="password" name="password" class="form-control" formControlName="password" [(ngModel)]="user.password" [ngClass]="{ 'is-invalid' : loginForm.controls['password'].touched && loginForm.controls['password'].errors}" id="password" placeholder="Password" autocomplete="off">
           </div>
           <div *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].errors" class="text-danger">
             <div *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].errors['required']">
-                Password tidak boleh kosong
+              Password {{ "form.validation_required" | translate }}
             </div>
           </div>
         </div>
