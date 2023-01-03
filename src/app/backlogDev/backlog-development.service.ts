@@ -30,4 +30,9 @@ export class BacklogDevelopmentService {
     const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
     return this.http.get<BacklogDevelopment[]>(`${this.baseUrl}/getByStatus/${status}`, {headers: headers});
   }
+
+  public countByStatus(token: any): Observable<any>{
+    const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
+    return this.http.get<number[]>(`${this.baseUrl}/count`, {headers: headers});
+  }
 }
