@@ -15,7 +15,7 @@ export class SearchApplicationFilterPipe implements PipeTransform {
     if(!applications || applications.length === 0) return applications;
 
     // blank search
-    if(!applicationSearch || !applicationSearch.application_name && !applicationSearch.application_type && !applicationSearch.application_type){
+    if(!applicationSearch || !applicationSearch.application_name && !applicationSearch.application_type && !applicationSearch.application_server){
       // console.log(projectSearch);
       return applications;
     }
