@@ -21,7 +21,8 @@ export class SidebarComponent implements OnInit {
     public translate: TranslateService, 
     private authService: LoginAuthService, 
     private userService: UserService, 
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private router: Router) {
     this.currentstatus = this.authService.getStatus().subscribe(currentstatus => {
       this.currentstatus = currentstatus;
     })
@@ -46,7 +47,7 @@ export class SidebarComponent implements OnInit {
       this.user = user;
       // console.log(user);
     }, err => {
-      // console.log(err);
+      this.logout();
     })
   }
 
