@@ -1,3 +1,4 @@
+// import { Page } from "src/model/page";
 import { Role } from "../role/role";
 
 export class User{
@@ -15,4 +16,10 @@ export class User{
   //   toString(): string {
   //     return this.user_name + ' ' + this.user_desc + ' ' + this.role.role_name;
   // }
+}
+
+export class SearchModelUser {
+  user_id!: string;
+  user_name!: string;
+  role!: string;
 }

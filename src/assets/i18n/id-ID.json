@@ -102,6 +102,26 @@
     "detail": "Detail Backlog Development"
   },
 
+  "application":{
+    "add" : "Tambah Application",
+    "list": "Daftar Application",
+    "edit": "Ubah Application",
+    "header":{
+      "application_name": "NAMA APPLICATION",
+      "application_device": "PERANGKAT APPLICATION",
+      "application_type": "JENIS APPLICATION",
+      "application_server": "SERVER APPLICATION",
+      "action" : "AKSI"
+    },
+    "form":{
+      "application_name": "Nama Application",
+      "application_device": "Perangkat Application",
+      "application_type": "Jenis Application",
+      "application_server": "Server Application"
+    },
+    "detail": "Detail Application"
+  },
+
   "form":{
     "created_by": "Dibuat oleh",
     "modify_by": "Diubah oleh",

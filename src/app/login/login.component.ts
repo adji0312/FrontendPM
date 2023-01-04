@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     this.userService.loginUser(user).subscribe((response) => {
       if(response){
         if(response.token){
-          // console.log(response);
+          console.log(response);
           localStorage.setItem('currentUser', JSON.stringify(response));
           this.router.navigate(['/dashboard']);
           this.toastr.success('You are success login', 'Login - Success');

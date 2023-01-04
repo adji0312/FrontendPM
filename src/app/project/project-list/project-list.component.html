@@ -20,10 +20,10 @@
             </button>
           </div>
 
-          <table class="table table-lg table-striped table-hover">
+          <table class="table table-lg table-striped table-hover text-center">
             <thead>
               <tr>
-                <th scope="col">NO</th>
+                <th scope="col">#</th>
                 <th scope="col">{{ "project.table.app" | translate }}</th>
                 <th scope="col">{{ "project.table.type" | translate }}</th>
                 <th scope="col">{{ "project.table.code" | translate }}</th>
@@ -31,17 +31,40 @@
                 <th scope="col">STATUS</th>
                 <th scope="col">{{ "project.table.action" | translate }}</th>
               </tr>
+              <tr style="background-color: #e3e4f0;">
+                <th scope="col"><i class="fas fa-filter"></i></th>
+                <th scope="col">
+                  <input class="form-control form-control-sm" [(ngModel)]="model.application" type="text">
+                </th>
+                <th scope="col">
+                  <input class="form-control form-control-sm" [(ngModel)]="model.project_type" type="text">
+                </th>
+                <th scope="col" class="search-hero">
+                  <input class="form-control form-control-sm" [(ngModel)]="model.project_code" type="text">
+                </th>
+                <th scope="col" class="search-hero">
+                  <input class="form-control form-control-sm" [(ngModel)]="model.project_bpro" type="text">
+                </th>
+                <th scope="col" class="search-hero">
+                  <input class="form-control form-control-sm" [(ngModel)]="model.project_status" type="text">
+                </th>
+                <th scope="col">
+                  <button type="button" class="rounded-circle p-1" style=" background-color: #cdd2d6; border: none;" tooltip="Clear Filter" [adaptivePosition]="false">
+                    <a (click)="clear()" type="button" style="cursor: pointer;"><i class="fas fa-broom"></i></a>
+                  </button>
+                </th>
+              </tr>
             </thead>
             <tbody>
               <tr
-                *ngFor="let project of projects | paginate:{itemsPerPage: tableSize, currentPage: page, totalItems: count}, let i = index">
+                *ngFor="let project of projects | searchProjectFilter: model | paginate:{itemsPerPage: tableSize, currentPage: page, totalItems: count}, let i = index">
                 <th scope="row">{{tableSize * (page - 1) + i+1}}</th>
                 <td>{{project.application}}</td>
                 <td>{{project.project_type}}</td>
                 <td>{{project.project_code}}</td>
                 <td>{{project.project_bpro}}</td>
                 <td>{{project.project_status}}</td>
-                <td class="d-flex gap-3">
+                <td class="d-flex gap-3 justify-content-center">
                   <button type="button" class="rounded-circle" style="background-color: #cdd2d6; border: none;"
                     tooltip="{{ 'tooltip.edit' | translate }}" [adaptivePosition]="false">
                     <a (click)="onOpenModal(project, 'edit')" type="button" data-bs-target="#updateProjectModal"

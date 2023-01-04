@@ -16,23 +16,40 @@
               <small class="fs-7 p-1">{{ "user.add" | translate }}</small>
             </button>
           </div>
-          <table class="table table-lg table-striped table-hover">
+          <table class="table table-lg table-striped table-hover text-center">
             <thead>
-              <tr>
-                <th scope="col">NO</th>
+              <tr style="background-color: #e3e4f0;">
+                <th scope="col">#</th>
                 <th scope="col">USER ID</th>
                 <th scope="col">{{ "user.name" | translate }}</th>
                 <th scope="col">ROLE</th>
                 <th scope="col">{{ "user.action" | translate }}</th>
               </tr>
+              <tr style="background-color: #e3e4f0;">
+                <th scope="col"><i class="fas fa-filter"></i></th>
+                <th scope="col">
+                  <input class="form-control form-control-sm" [(ngModel)]="model.user_id" type="text">
+                </th>
+                <th scope="col">
+                  <input class="form-control form-control-sm" [(ngModel)]="model.user_name" type="text">
+                </th>
+                <th scope="col" class="search-hero">
+                  <input class="form-control form-control-sm" [(ngModel)]="model.role" type="text">
+                </th>
+                <th scope="col">
+                  <button type="button" class="rounded-circle p-1" style=" background-color: #cdd2d6; border: none;" tooltip="Clear Filter" [adaptivePosition]="false">
+                    <a (click)="clear()" type="button" style="cursor: pointer;"><i class="fas fa-broom"></i></a>
+                  </button>
+                </th>
+              </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let user of users | paginate:{itemsPerPage: tableSize, currentPage: page, totalItems: count}; let i = index; ">
+              <tr *ngFor="let user of users | searchUserFilter: model |paginate:{itemsPerPage: tableSize, currentPage: page, totalItems: count}; let i = index;">
                 <th scope="row">{{tableSize * (page - 1) + i+1}}</th>
                 <td>{{user.user_id}}</td>
                 <td>{{user.user_name}}</td>
                 <td>{{user.role.role_name}}</td>
-                <td class="d-flex gap-3">
+                <td class="d-flex gap-3 justify-content-center">
                   <button type="button" class="rounded-circle" style="background-color: #cdd2d6; border: none;" tooltip="{{'tooltip.edit' | translate}}" [adaptivePosition]="false">
                     <a (click)="onOpenModal(user, 'edit')" type="button" data-bs-target="#updateUserModal" data-bs-toggle="modal"><i class="fa fa-pencil"></i></a>
                   </button>

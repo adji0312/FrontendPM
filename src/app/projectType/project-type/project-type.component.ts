@@ -3,9 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription, switchMap, timer } from 'rxjs';
 import { LoginAuthService } from 'src/app/login-auth.service';
+import { SearchModelProject } from 'src/app/project/project';
 import Swal from 'sweetalert2';
 import { ProjectTypeService } from '../project-type.service';
-import { ProjectType } from '../projectType';
+import { ProjectType, SearchModelProjectType } from '../projectType';
 
 @Component({
   selector: 'app-project-type',
@@ -29,6 +30,7 @@ export class ProjectTypeComponent implements OnInit {
   tableSize: number = 8;
 
   realTimeDataSubscription$!: Subscription;
+  model: SearchModelProjectType = new SearchModelProjectType;
 
   constructor(private projectTypeService: ProjectTypeService, private formBuilder: FormBuilder, private authservice: LoginAuthService) {
     this.authservice.isLoggedIn();
@@ -46,6 +48,11 @@ export class ProjectTypeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProjectTypes();
+  }
+
+  clear(){
+    this.model.project_type = '',
+    this.model.project_desc = ''
   }
 
   private getProjectTypes(){

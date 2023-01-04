@@ -8,3 +8,9 @@ export class Role{
     role_name!: string;
     role_desc!: string;
 }
+
+export class SearchModelRole {
+    role_id!: string;
+    role_name!: string;
+    role_desc!: string;
+  }

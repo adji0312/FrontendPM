@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Project } from '../project';
+import { Project, SearchModelProject } from '../project';
 import { ProjectService } from '../project.service';
 import Swal from 'sweetalert2';
 import { Subscription, switchMap, timer } from 'rxjs';
@@ -36,6 +36,7 @@ export class ProjectListComponent implements OnInit {
   public deleteProject: Project = new Project;
 
   realTimeDataSubscription$!: Subscription;
+  model: SearchModelProject = new SearchModelProject;
 
   constructor(
     private projectService: ProjectService,
@@ -65,6 +66,14 @@ export class ProjectListComponent implements OnInit {
   ngOnInit(): void {
     this.getProjects();
     this.getProjectTypes();
+  }
+
+  clear(){
+    this.model.application = '',
+    this.model.project_type = '',
+    this.model.project_code = '',
+    this.model.project_bpro = '',
+    this.model.project_status = ''
   }
 
   private getProjects(){

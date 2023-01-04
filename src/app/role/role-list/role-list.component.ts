@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Role } from '../role';
+import { Role, SearchModelRole } from '../role';
 import { RoleService } from '../role.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -29,6 +29,7 @@ export class RoleListComponent implements OnInit {
   editRoleForm!: FormGroup;
 
   realTimeDataSubscription$!: Subscription;
+  model:SearchModelRole = new SearchModelRole();
 
   constructor(private roleService: RoleService, private formBuilder: FormBuilder, private authservice: LoginAuthService) {
     this.authservice.isLoggedIn();
@@ -48,6 +49,12 @@ export class RoleListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getRoles();
+  }
+
+  clear(){
+    this.model.role_id = '',
+    this.model.role_name = '',
+    this.model.role_desc = ''
   }
 
   onTableDataChange(event: any){

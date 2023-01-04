@@ -50,24 +50,4 @@ export class UserService {
     const headers = new HttpHeaders({'Access-Control-Allow-Origin': '*'});
     return this.http.post("http://localhost:8080/login", user, {headers: headers});
   }
-
-  // constructor(private http: HttpClient ) { }
-
-  // private baseUrl = `${environment.baseUrl}/user`;
-
-  // public getUsers(): Observable<User[]> {
-  //   return this.http.get<User[]>(`${this.baseUrl}/all`);
-  // }
-
-  // public addUser(user: User): Observable<User> {
-  //   return this.http.post<User>(`${this.baseUrl}/add`, user);
-  // }
-
-  // public updateUser(user: User, id:number): Observable<User>{
-  //   return this.http.put<User>(`${this.baseUrl}/update/${id}`, user);
-  // }
-
-  // public deleteUser(id: number): Observable<void>{
-  //   return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
-  // }
 }

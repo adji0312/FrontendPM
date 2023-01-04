@@ -7,3 +7,8 @@ export class ProjectType{
   project_type!: string;
   project_desc!: string;
 }
+
+export class SearchModelProjectType{
+  project_type!: string;
+  project_desc!: string;
+}

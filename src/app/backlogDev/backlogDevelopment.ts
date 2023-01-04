@@ -5,7 +5,7 @@ export class BacklogDevelopment{
   created_date!: Date;
   modify_by!: string;
   modify_date! : Date;
-  application!: Date;
+  application!: string;
   backlog_type!: string;
   backlog_code!: string;
   backlog_bpro!: string;
@@ -15,4 +15,12 @@ export class BacklogDevelopment{
   backlog_start!: Date;
   backlog_end!: Date;
   pic_PM!: string;
+}
+
+export class SearchModelBacklogDev{
+  application!: string;
+  backlog_type!: string;
+  backlog_code!: string;
+  backlog_bpro!: string;
+  backlog_status!: string;
 }

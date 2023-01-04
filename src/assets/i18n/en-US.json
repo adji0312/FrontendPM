@@ -102,6 +102,26 @@
     "detail": "Backlog Development Details"
   },
 
+  "application":{
+    "add" : "Add Application",
+    "list": "Application List",
+    "edit": "Edit Application",
+    "header": {
+      "application_name": "APPLICATION NAME",
+      "application_device": "APPLICATION DEVICE",
+      "application_type": "APPLICATION TYPE",
+      "application_server": "APPLICATION SERVER",
+      "action" : "ACT"
+    },
+    "form":{
+      "application_name": "Application Name",
+      "application_device": "Application Device",
+      "application_type": "Application Type",
+      "application_server": "Application Server"
+    },
+    "detail": "Application Details"
+  },
+
   "form":{
     "created_by": "Created By",
     "modify_by": "Modify By",

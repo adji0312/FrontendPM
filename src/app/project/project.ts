@@ -12,3 +12,11 @@ export class Project{
     project_kickoff!: Date;
     project_status!: string;
 }
+
+export class SearchModelProject{
+    application!: string;
+    project_type!: string;
+    project_code!: string;
+    project_bpro!: string;
+    project_status!: string;
+}

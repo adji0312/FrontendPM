@@ -47,7 +47,8 @@ export class SidebarComponent implements OnInit {
       this.user = user;
       // console.log(user);
     }, err => {
-      this.logout();
+      localStorage.removeItem('currentUser');
+      this.router.navigate(['/login']);
     })
   }
 

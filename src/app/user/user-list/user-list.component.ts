@@ -1,20 +1,33 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { data } from 'jquery';
 import { Subscription, switchMap, timer } from 'rxjs';
 import { LoginAuthService } from 'src/app/login-auth.service';
 import { Role } from 'src/app/role/role';
 import { RoleService } from 'src/app/role/role.service';
 import Swal from 'sweetalert2';
-import { User } from '../user';
+// import { SearchParamsUser } from '../search-params-user';
+import { SearchModelUser, User } from '../user';
 import { UserService } from '../user.service';
+
+
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
+
+// export interface SearchItem {
+//   name: string;
+// }
+
 export class UserListComponent implements OnInit {
+
+  searchRole!: string;
+  searchUserName!: string;
+  searchUserId!: string;
 
   users!: User[];
   roles!: Role[];
@@ -34,10 +47,16 @@ export class UserListComponent implements OnInit {
   editUser: User = new User;
   deleteUser: User = new User;
 
+  
   public loginuser: any = {};
   public user: any = {};
-
   realTimeDataSubscription$!: Subscription;
+  
+
+  listUser: Array<User> = [];
+  model:SearchModelUser = new SearchModelUser();
+
+  
 
   private loadData(){
     this.getUsers();
@@ -62,7 +81,7 @@ export class UserListComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.loadData();
     this.userService.getUser(this.loginuser.token).subscribe(user => {
       this.user = user;
@@ -70,6 +89,18 @@ export class UserListComponent implements OnInit {
     }, err => {
       // console.log(err);
     })
+
+    this.userService.getAllUsers(this.loginuser.token).subscribe((data: any) => {
+      this.listUser = data;
+      console.log(data);
+    });
+  }
+
+  
+  clear(){
+    this.model.user_id = '',
+    this.model.user_name = '',
+    this.model.role = ''
   }
 
   get role(){
@@ -80,7 +111,8 @@ export class UserListComponent implements OnInit {
     this.realTimeDataSubscription$ = timer(0, 1000)
       .pipe(switchMap(_ => this.userService.getAllUsers(this.loginuser.token)))
       .subscribe(data => {
-        this.users = data;
+        console.log(data.sort());
+        this.users = data.sort();
     });
   }
 
@@ -90,6 +122,12 @@ export class UserListComponent implements OnInit {
       this.roles = data;
     });
   }
+
+  // public alphabeticalOrder(arr){
+  //   return arr.sort(function(a, b){
+  //     return a === b ? : a > b ? 1 : -1;
+  //   });
+  // }
 
 
   onTableDataChange(event: any){
@@ -106,7 +144,7 @@ export class UserListComponent implements OnInit {
     this.userService.addUser(this.addUserForm.value, this.loginuser.token).subscribe(
       (response: User) => {
         this.getUsers();
-        // console.log(user);
+        // console.log(response);
         Swal.fire({
           position: 'center',
           icon: 'success',

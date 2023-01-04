@@ -4,7 +4,7 @@ import { Subscription, switchMap, timer } from 'rxjs';
 import { ProjectPIC } from 'src/app/projectPIC/projectPIC';
 import { User } from 'src/app/user/user';
 import { BacklogDevelopmentService } from '../backlog-development.service';
-import { BacklogDevelopment } from '../backlogDevelopment';
+import { BacklogDevelopment, SearchModelBacklogDev } from '../backlogDevelopment';
 import { Router } from '@angular/router';
 import { LoginAuthService } from 'src/app/login-auth.service';
 import { UserService } from 'src/app/user/user.service';
@@ -37,6 +37,7 @@ export class BacklogDevelopmentComponent implements OnInit {
   tableSize: number = 8;
 
   realTimeDataSubscription$!: Subscription;
+  model: SearchModelBacklogDev = new SearchModelBacklogDev;
 
   constructor(
     private backlogDevService: BacklogDevelopmentService,
@@ -54,6 +55,13 @@ export class BacklogDevelopmentComponent implements OnInit {
     this.getPICPM();
   }
 
+  clear(){
+    this.model.application = '',
+    this.model.backlog_type = '',
+    this.model.backlog_code = '',
+    this.model.backlog_bpro = '',
+    this.model.backlog_status = ''
+  }
 
   private getBacklogDevelopment(){
     this.realTimeDataSubscription$ = timer(0, 1000)
