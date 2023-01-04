@@ -68,13 +68,8 @@ export class DashboardComponent implements OnInit {
                   '#C4DFAA',
                   '#D7C0AE',
               ],
-              // borderColor: [
-              //     'rgba(255, 99, 132, 1)',
-              //     'rgba(54, 162, 235, 1)',
-              //     'rgba(75, 192, 192, 1)',
-              //     'rgba(153, 102, 255, 1)',
-              // ],
-              // borderWidth: 1
+              borderColor: "#FFFFFF",
+              borderWidth: 1
           }]
       },
       options:{
@@ -87,6 +82,9 @@ export class DashboardComponent implements OnInit {
                 size: 15
               }
             }
+          },
+          tooltip: {
+            enabled: false
           }
         },
         responsive: true,
