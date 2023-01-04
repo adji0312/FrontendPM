@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
@@ -7,6 +8,9 @@ import { Observable, Subject } from 'rxjs';
 export class LoginAuthService {
 
   private subject = new Subject<any>();
+  private token: any;
+
+  constructor(private router: Router) { }
 
   isLoggedIn(){
     if(localStorage.getItem('currentUser')){
@@ -24,5 +28,9 @@ export class LoginAuthService {
     return this.subject.asObservable();
   }
   
-  constructor() { }
+  logout(){
+    localStorage.removeItem('currentUser');
+    this.router.navigate(['/login']);
+  }
+
 }

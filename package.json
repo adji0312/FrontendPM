@@ -22,14 +22,16 @@
     "@ngx-translate/http-loader": "^7.0.0",
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.2",
+    "chart.js": "^4.0.1",
     "jquery": "^3.6.1",
     "ngx-bootstrap": "^9.0.0",
     "ngx-pagination": "^6.0.2",
+    "ngx-toastr": "^14.2.1",
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.4.8",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
-  },
+},
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.1",
     "@angular/cli": "~14.2.1",

@@ -16,12 +16,17 @@ export class LoginComponent implements OnInit {
   public user: any = {};
   loginForm!: FormGroup;
 
-  constructor(private userService: UserService, private router: Router, private authService: LoginAuthService, private formBuilder : FormBuilder, private toastr: ToastrService) {
+  constructor(
+    private userService: UserService, 
+    private router: Router, 
+    private authService: LoginAuthService, 
+    private formBuilder : FormBuilder, 
+    private toastr: ToastrService) {
+
     this.authService.isLoggedIn();
    }
 
   ngOnInit(): void {
-
     this.loginForm = this.formBuilder.group({
       user_id: ['', [Validators.required]],
       password: ['', Validators.required],
@@ -36,6 +41,12 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('currentUser', JSON.stringify(response));
           this.router.navigate(['/dashboard']);
           this.toastr.success('You are success login', 'Login - Success');
+
+          const jwtToken = JSON.parse(atob(response.token.split('.')[1]));
+          const expires = new Date(jwtToken.exp * 1000);
+          const timeout = expires.getTime() - Date.now();
+
+          setTimeout(() => this.authService.logout(), timeout);
         }
       }
     }, (error) => {

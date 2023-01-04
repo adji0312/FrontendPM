@@ -7,6 +7,8 @@ import { BacklogDevelopmentService } from '../backlog-development.service';
 import { BacklogDevelopment } from '../backlogDevelopment';
 import { Router } from '@angular/router';
 import { LoginAuthService } from 'src/app/login-auth.service';
+import { UserService } from 'src/app/user/user.service';
+import { ProjectPicService } from 'src/app/projectPIC/project-pic.service';
 
 @Component({
   selector: 'app-backlog-development',
@@ -20,13 +22,15 @@ export class BacklogDevelopmentComponent implements OnInit {
   users!: User[];
 
   viewPICDevs!: ProjectPIC[];
-  public loginuser: any = {};
+  loginuser: any = {};
   formArray: any;
 
   editBacklogDev: BacklogDevelopment = new BacklogDevelopment;
   viewBacklogDev: BacklogDevelopment = new BacklogDevelopment;
-
   editBacklogDevForm!: FormGroup;
+
+  picPM: ProjectPIC[] = [];
+  picProLead: ProjectPIC[] = [];
 
   page: number = 1;
   count: number = 0;
@@ -36,6 +40,8 @@ export class BacklogDevelopmentComponent implements OnInit {
 
   constructor(
     private backlogDevService: BacklogDevelopmentService,
+    private userService: UserService,
+    private projectPICService: ProjectPicService,
     private router: Router,
     private authService: LoginAuthService
   ) {
@@ -45,7 +51,9 @@ export class BacklogDevelopmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBacklogDevelopment();
+    this.getPICPM();
   }
+
 
   private getBacklogDevelopment(){
     this.realTimeDataSubscription$ = timer(0, 1000)
@@ -53,19 +61,31 @@ export class BacklogDevelopmentComponent implements OnInit {
     .subscribe(data => {
       this.backlogDevs = data;
     });
-
-    // this.backlogDevService.getAllBacklogDevelopment()
-    // .subscribe(data => {
-    //   this.backlogDevs = data;
-    // });
   }
 
+
+  private getPICPM(){
+    this.userService.getUserByRole("PRO LEAD", this.loginuser.token).subscribe(data => {
+      this.picPM = data;
+    });
+  }
+
+
+  checkRole(backlogDev: BacklogDevelopment, index: number){
+
+    if(this.loginuser.user.role.role_name == "SPV DEV"){
+      return true;
+    }else if(this.loginuser.user.role.role_name == "PRO LEAD" && backlogDev.backlog_status != "KIC" && backlogDev.pic_PM == this.loginuser.user.user_id){
+      return true;
+    }
+
+    return false;
+  }
 
   onTableDataChange(event: any){
     this.page = event;
     this.getBacklogDevelopment();
   }
-
 
   public onOpenModal(backlogDev: BacklogDevelopment, mode: string): void{
     const button = document.createElement('button');
@@ -75,6 +95,7 @@ export class BacklogDevelopmentComponent implements OnInit {
       this.backlogDevService.editBacklogDev = backlogDev;
       this.router.navigate(['/backlogDevEdit'], {skipLocationChange: true});
     }
+
     if(mode === 'view'){
       this.backlogDevService.viewBacklogDev = backlogDev;
       this.router.navigate(['/backlogDevDetail'], {skipLocationChange: true});
@@ -82,4 +103,6 @@ export class BacklogDevelopmentComponent implements OnInit {
 
     button.click();
   }
+
+
 }

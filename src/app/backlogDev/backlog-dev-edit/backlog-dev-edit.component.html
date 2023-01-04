@@ -55,8 +55,9 @@
                   <div style="width: 600px;">
                     <div class="form-group">
                       <label for="backlog_status">{{ "backlogDev.form.status" | translate }}</label>
-                      <input type="text" formControlName="backlog_status" name="backlog_status"
-                      class="form-control" id="backlog_status">
+                      <select class="input-group form-select col-10" formControlName="backlog_status">
+                        <option *ngFor="let stat of project_status" [value]="stat.status">{{ stat.status }}</option>
+                      </select>
                     </div>
                     <div class="">
                       <label for="backlog_start">{{ "backlogDev.form.start" | translate }}</label>
@@ -85,9 +86,9 @@
                     </div>
                     <div class="">
                       <label for="disabledTextInput" class="form-label mb-0">PIC PM</label>
-                      <select class="input-group form-select col-10">
+                      <select class="input-group form-select col-10" formControlName="pic_PM">
                         <option [value]="null" disabled>--{{ "backlogDev.form.choose_Dev" | translate }}--</option>
-                        <option *ngFor="let user of users" [value]="user.user_id">{{ user.user_name }}</option>
+                        <option *ngFor="let pic of picPM" [value]="pic.user_id">{{ pic.user_name }}</option>
                       </select>
                     </div>
                     <div class="">
@@ -115,7 +116,7 @@
                         </div>
                         <select class="input-group form-select col-10" formControlName="pic_Dev" name="pic_Dev" id="pic_Dev" style="width: 50%;">
                           <option [value]="null" disabled>--{{ "backlogDev.form.choose_Dev" | translate }}--</option>
-                          <option *ngFor="let user of users" [value]="user.user_id">{{ user.user_name }}</option>
+                          <option *ngFor="let pic of picDev" [value]="pic.user_id">{{ pic.user_name }}</option>
                         </select>
                         <div class="d-flex col-3">
                           <button *ngIf="isLast" class="btn btn-sm btn-light ms-3" style="border: none;"
@@ -135,7 +136,7 @@
 
               <div class="text-right d-flex justify-content-end mt-3 mb-2">
                 <button type="button" class="btn btn-secondary bg-danger" style="border: none;" (click)="closeBacklogDevEdit()"><i class="fas fa-times"></i> {{ "button.close" | translate }}</button>
-                <button [disabled]="editBacklogDevForm.invalid || !editBacklogDevForm.dirty" type="submit" style="background-color: #0abe03; border: none;" class="ms-3 btn btn-primary">
+                <button [disabled]="editBacklogDevForm.invalid" type="submit" style="background-color: #0abe03; border: none;" class="ms-3 btn btn-primary">
                   <i class="fa fa-floppy-o" aria-hidden="true"></i> {{ "button.save_changes" | translate }}
                 </button>
               </div>
