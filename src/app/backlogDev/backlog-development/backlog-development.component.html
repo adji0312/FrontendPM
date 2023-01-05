@@ -62,6 +62,12 @@
                 <td>{{backlogDev.backlog_bpro}}</td>
                 <td>{{backlogDev.backlog_status}}</td>
                 <td class="d-flex gap-3 justify-content-center">
+                  <div *ngIf="checkRole(backlogDev)">
+                    <button type="button" class="rounded-circle" style="background-color: #cdd2d6; border: none;"
+                      tooltip="{{ 'tooltip.edit' | translate }}" [adaptivePosition]="false" id="editTooltip">
+                      <a (click)="onOpenModal(backlogDev, 'edit')" type="button"><i class="fa fa-pencil"></i></a>
+                    </button>
+                  </div>
                   <button type="button" class="rounded-circle" style="background-color: #cdd2d6; border: none;"
                   tooltip="{{ 'tooltip.detail' | translate }}" [adaptivePosition]="false">
                     <a (click)="onOpenModal(backlogDev, 'view')" type="button"><i class="fa fa-eye"></i></a>

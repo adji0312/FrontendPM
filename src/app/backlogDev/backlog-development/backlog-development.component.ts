@@ -79,7 +79,7 @@ export class BacklogDevelopmentComponent implements OnInit {
   }
 
 
-  checkRole(backlogDev: BacklogDevelopment, index: number){
+  checkRole(backlogDev: BacklogDevelopment){
 
     if(this.loginuser.user.role.role_name == "SPV DEV"){
       return true;
