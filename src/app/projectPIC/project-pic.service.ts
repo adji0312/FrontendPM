@@ -33,12 +33,14 @@ export class ProjectPicService {
     return this.http.get<ProjectPIC[]>(`${this.baseUrl}/getPICDev/${project_code}`, {headers: headers});
   }
 
+  public countPICDev(token: any): Observable<any>{
+    const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
+    return this.http.get<number[]>(`${this.baseUrl}/countPICDev`, {headers: headers});
+  }
+
   public deleteProjectPIC(project_code: string, user_id: string, token: any): Observable<void>{
     const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
     return this.http.delete<void>(`${this.baseUrl}/delete/${project_code}/${user_id}`, {headers: headers})
   }
   
-  // public deleteProjectPICByProjectCode(project_code: string): Observable<void>{
-  //   return this.http.delete<void>(`${this.baseUrl}/delete/${project_code}`);
-  // }
 }
