@@ -85,14 +85,12 @@ export class UserListComponent implements OnInit {
     this.loadData();
     this.userService.getUser(this.loginuser.token).subscribe(user => {
       this.user = user;
-      console.log(user);
     }, err => {
       // console.log(err);
     })
 
     this.userService.getAllUsers(this.loginuser.token).subscribe((data: any) => {
       this.listUser = data;
-      console.log(data);
     });
   }
 
@@ -111,13 +109,11 @@ export class UserListComponent implements OnInit {
     this.realTimeDataSubscription$ = timer(0, 1000)
       .pipe(switchMap(_ => this.userService.getAllUsers(this.loginuser.token)))
       .subscribe(data => {
-        console.log(data.sort());
         this.users = data.sort();
     });
   }
 
   private getRoles(){
-
     this.roleService.getRoles(this.loginuser.token).subscribe(data => {
       this.roles = data;
     });
