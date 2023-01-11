@@ -36,6 +36,11 @@ export class UserService {
     return this.http.get(`${this.baseUrl}/getByRole/${role}`, {headers: headers});
   }
 
+  countUserByRole(token: any): Observable<any>{
+    const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
+    return this.http.get(`${this.baseUrl}/countUser`, {headers: headers});
+  }
+
   updateUser(id:number, user: User, token: any): Observable<User>{
     const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
     return this.http.put<User>(`${this.baseUrl}/update/${id}`, user, {headers: headers});

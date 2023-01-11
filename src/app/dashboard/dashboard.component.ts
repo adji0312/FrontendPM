@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
+import { Chart, registerables, scales } from 'chart.js';
 import { BacklogDevelopmentService } from '../backlogDev/backlog-development.service';
 import { LoginAuthService } from '../login-auth.service';
 import { ProjectPicService } from '../projectPIC/project-pic.service';
@@ -30,37 +30,22 @@ export class DashboardComponent implements OnInit {
 
     this.createBacklogDevChart();
     this.createDevChart();
-    
+    this.createResourceChart();
 
   }
 
 
   createBacklogDevChart(){
 
-    var statusLabel = ['KIC', 'DEV', 'SIT', 'READY UAT'];
-    var statusCount = [0,0,0,0];
-
-    statusLabel = ['KIC', 'DEV', 'SIT', 'READY UAT'];
-    statusCount = [0,0,0,0];
+    var statusLabel = [];
+    var statusCount: number[] = [];
 
     this.backlogDevService.countByStatus(this.loginuser.token).subscribe(data => {
 
-      for(let i=0; i<statusLabel.length; i++){
-        if(data[i]){
-          statusCount[i] = data[i];
-        }
-      }
+      statusLabel = data;
 
-      for(let i=0; i<statusCount.length; i++){
-        if(statusLabel[i]){
-          statusLabel[i] = String(statusLabel.at(i)?.concat(" : " + String(statusCount.at(i))));
-        }
-      }
-
-      var noData = statusCount.every(item => item === 0);
-      
-      if(noData){
-        return;
+      for(let i=0; i<statusLabel.length;i++){
+        statusCount[i] = statusLabel[i].slice(-1)
       }
 
       new Chart("backlogDev", {
@@ -70,10 +55,10 @@ export class DashboardComponent implements OnInit {
             datasets: [{
                 data: statusCount,
                 backgroundColor: [
-                    '#A6B1E1',
-                    '#EA9ABB',
-                    '#C4DFAA',
-                    '#D7C0AE',
+                    '#FFE15D',
+                    '#F49D1A',
+                    '#DC3535',
+                    '#B01E68',
                 ],
                 borderColor: "#FFFFFF",
                 borderWidth: 1
@@ -82,15 +67,15 @@ export class DashboardComponent implements OnInit {
         options:{
           plugins:{
             legend:{
-              position: 'bottom',
-              fullSize: true,
+              position: 'right',
               labels:{
+                usePointStyle: true,
+                pointStyle: 'rectRot',
                 color: 'black',
                 font:{
                   size: 15
                 },
               },
-              
             },
             tooltip: {
               enabled: false
@@ -101,14 +86,10 @@ export class DashboardComponent implements OnInit {
             padding:{
               bottom: 100
             }
-          }
+          },
         },
-        
       });
-
     });
-
-    
   }
 
   createDevChart(){
@@ -135,10 +116,8 @@ export class DashboardComponent implements OnInit {
                 datasets: [{
                     data: statusCount,
                     backgroundColor: [
-                        '#A6B1E1',
-                        '#EA9ABB',
-                        '#C4DFAA',
-                        '#D7C0AE',
+                        '#BFEAF5',
+                        '#82AAE3',
                     ],
                     borderColor: "#FFFFFF",
                     borderWidth: 1
@@ -147,9 +126,11 @@ export class DashboardComponent implements OnInit {
             options:{
               plugins:{
                 legend:{
-                  position: 'bottom',
+                  position: 'right',
                   fullSize: true,
                   labels:{
+                    usePointStyle: true,
+                    pointStyle: 'rectRot',
                     color: 'black',
                     font:{
                       size: 15
@@ -174,6 +155,64 @@ export class DashboardComponent implements OnInit {
 
       
     });
+  }
+
+  createResourceChart(){
+      var roleLabels = [];
+      var roleCount: number[] = [];
+
+      this.userService.countUserByRole(this.loginuser.token).subscribe(data => {
+        roleLabels = data;
+
+        for(let i=0; i<roleLabels.length;i++){
+          roleCount[i] = roleLabels[i].slice(-1)
+        }
+
+        new Chart("resourceChart", {
+          type: 'doughnut',
+          data: {
+              labels: roleLabels,
+              datasets: [{
+                  data: roleCount,
+                  backgroundColor: [
+                      '#FBF8CC',
+                      '#FDE4CF',
+                      '#F1C0E8',
+                      '#CFBAF0',
+                      '#A3C4F3',
+                      '#8EECF5',
+                      '#B9FBC0'
+                  ],
+                  borderColor: "#FFFFFF",
+                  borderWidth: 1
+              }]
+          },
+          options:{
+            plugins:{
+              legend:{
+                position: 'right',
+                fullSize: true,
+                labels:{
+                  usePointStyle: true,
+                  pointStyle: 'rectRot',
+                  color: 'black',
+                  font:{
+                    size: 15
+                  },
+                },
+                
+              },
+            },
+            responsive: true,
+            layout:{
+              padding:{
+                bottom: 100
+              }
+            },
+          },
+        });
+
+      });
   }
 
 
