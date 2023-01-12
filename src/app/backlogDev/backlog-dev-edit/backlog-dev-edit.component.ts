@@ -72,7 +72,8 @@ export class BacklogDevEditComponent implements OnInit {
         backlog_status: [{value: ''}],
         backlog_start: ['', [Validators.required]],
         backlog_end: ['', [Validators.required]],
-        pic_PM: ['',Validators.required],
+        modify_by: [''],
+        pic_PM: ['', Validators.required],
         pic_Devs: this.formBuilder.array([])
       }, {validators: this.dateRangeValidator});
 
@@ -119,7 +120,7 @@ export class BacklogDevEditComponent implements OnInit {
       backlog_kickoff: formatDate(this.editBacklogDev.backlog_kickoff,'dd MMMM YYYY', 'en'),
       backlog_status: this.editBacklogDev.backlog_status,
       backlog_start: '',
-      backlog_end: ''
+      backlog_end: '',
     });
 
 
@@ -184,6 +185,10 @@ export class BacklogDevEditComponent implements OnInit {
             for(let deletePIC of missing){
               this.projectPICService.deleteProjectPIC(this.editBacklogDev.backlog_code, deletePIC, this.loginuser.token).subscribe();
             }
+
+            this.editBacklogDevForm.patchValue({
+              modify_by: this.loginuser.user.user_id
+            });
 
             this.backlogDevService.updateBacklogDevelopment(this.editBacklogDev.id, this.editBacklogDevForm.value, this.loginuser.token).subscribe(
               (response: BacklogDevelopment) => {

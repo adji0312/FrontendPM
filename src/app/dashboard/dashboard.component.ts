@@ -175,7 +175,7 @@ export class DashboardComponent implements OnInit {
               datasets: [{
                   data: roleCount,
                   backgroundColor: [
-                      '#FBF8CC',
+                      '#FFDB89',
                       '#FDE4CF',
                       '#F1C0E8',
                       '#CFBAF0',
@@ -200,7 +200,6 @@ export class DashboardComponent implements OnInit {
                     size: 15
                   },
                 },
-                
               },
             },
             responsive: true,

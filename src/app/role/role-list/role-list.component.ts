@@ -37,13 +37,15 @@ export class RoleListComponent implements OnInit {
     this.addRoleForm = this.formBuilder.group({
       role_id: ['', [Validators.required,Validators.maxLength(10)]],
       role_name: ['', [Validators.required,Validators.maxLength(15)]],
-      role_desc: ['', [Validators.required, Validators.maxLength(25)]]
+      role_desc: ['', [Validators.required, Validators.maxLength(25)]],
+      created_by: [''],
     });
 
     this.editRoleForm = this.formBuilder.group({
       role_id: ['', [Validators.required,Validators.maxLength(10)]],
       role_name: ['', [Validators.required,Validators.maxLength(15)]],
-      role_desc: ['', [Validators.required, Validators.maxLength(25)]]
+      role_desc: ['', [Validators.required, Validators.maxLength(25)]],
+      modify_by: [''],
     });
   }
 
@@ -75,6 +77,10 @@ export class RoleListComponent implements OnInit {
       if(this.addRoleForm.invalid){
         return;
       }
+
+      this.addRoleForm.patchValue({
+        created_by: this.loginuser.user.user_id,
+      });
 
       this.roleService.addRole(this.addRoleForm.value, this.loginuser.token).subscribe(
         (response: Role) => {
@@ -115,6 +121,10 @@ export class RoleListComponent implements OnInit {
     if(this.editRoleForm.invalid){
       return;
     }
+
+    this.editRoleForm.patchValue({
+      modify_by: this.loginuser.user.user_id,
+    });
 
     this.roleService.updateRole(this.editRole.id, this.editRoleForm.value, this.loginuser.token).subscribe(
       (response: Role) => {

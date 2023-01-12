@@ -50,7 +50,8 @@ export class ProjectListComponent implements OnInit {
       project_type: ['', [Validators.required]],
       project_bpro: ['', [Validators.required, Validators.maxLength(15)]],
       project_desc: ['', [Validators.required, Validators.maxLength(100)]],
-      project_kickoff: ['', [Validators.required]]
+      project_kickoff: ['', [Validators.required]],
+      created_by: ['']
     });
 
     this.editProjectForm = this.formBuilder.group({
@@ -60,6 +61,7 @@ export class ProjectListComponent implements OnInit {
       project_bpro: ['', [Validators.required, Validators.maxLength(15)]],
       project_desc: ['', [Validators.required, Validators.maxLength(100)]],
       project_kickoff: ['', [Validators.required]],
+      modify_by: ['']
     });
   }
 
@@ -105,6 +107,10 @@ export class ProjectListComponent implements OnInit {
       return;
     }
 
+    this.addProjectForm.patchValue({
+      created_by: this.loginuser.user.user_id,
+    });
+
     this.projectService.addProject(this.addProjectForm.value, this.loginuser.token).subscribe(
       (response: Project) => {
         this.getProjects();
@@ -143,6 +149,10 @@ export class ProjectListComponent implements OnInit {
     if(this.editProjectForm.invalid){
       return;
     }
+
+    this.editProjectForm.patchValue({
+      modify_by: this.loginuser.user.user_id,
+    });
 
     this.projectService.updateProject(this.editProject.id, this.editProjectForm.value, this.loginuser.token).subscribe(
       (response: Project) => {

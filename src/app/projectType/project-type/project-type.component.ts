@@ -37,12 +37,14 @@ export class ProjectTypeComponent implements OnInit {
     this.loginuser = JSON.parse(localStorage.getItem('currentUser') as string);
     this.addProjectTypeForm = this.formBuilder.group({
       project_type: ['', [Validators.required, Validators.maxLength(6)]],
-      project_desc: ['', [Validators.required, Validators.maxLength(60)]]
+      project_desc: ['', [Validators.required, Validators.maxLength(60)]],
+      created_by: ['']
     });
 
     this.editProjectTypeForm = this.formBuilder.group({
       project_type: ['', [Validators.required, Validators.maxLength(6)]],
-      project_desc: ['', [Validators.required, Validators.maxLength(60)]]
+      project_desc: ['', [Validators.required, Validators.maxLength(60)]],
+      modify_by: ['']
     });
   }
 
@@ -73,6 +75,10 @@ export class ProjectTypeComponent implements OnInit {
     if(this.addProjectTypeForm.invalid){
       return;
     }
+
+    this.addProjectTypeForm.patchValue({
+      created_by: this.loginuser.user.user_id,
+    });
 
     this.projectTypeService.addProjectType(this.addProjectTypeForm.value, this.loginuser.token).subscribe(
       (response: ProjectType) => {
@@ -111,6 +117,10 @@ export class ProjectTypeComponent implements OnInit {
     if(this.editProjectTypeForm.invalid){
       return;
     }
+
+    this.editProjectTypeForm.patchValue({
+      modify_by: this.loginuser.user.user_id,
+    });
 
     this.projectTypeService.updateProjectType(this.editProjectType.id, this.editProjectTypeForm.value, this.loginuser.token).subscribe(
       (response: ProjectType) => {

@@ -71,12 +71,14 @@ export class UserListComponent implements OnInit {
       user_id: ['', [Validators.required, Validators.maxLength(10)]],
       user_name: ['', [Validators.required, Validators.maxLength(25)]],
       role: ['', [Validators.required]],
+      created_by: ['']
     });
 
     this.editUserForm = this.formBuilder.group({
       user_id: ['', [Validators.required, Validators.maxLength(10)]],
       user_name: ['', [Validators.required, Validators.maxLength(25)]],
       role: ['', Validators.required],
+      modify_by: ['']
     });
 
   }
@@ -137,6 +139,10 @@ export class UserListComponent implements OnInit {
       return;
     }
 
+    this.addUserForm.patchValue({
+      created_by: this.loginuser.user.user_id,
+    });
+
     this.userService.addUser(this.addUserForm.value, this.loginuser.token).subscribe(
       (response: User) => {
         this.getUsers();
@@ -183,7 +189,8 @@ export class UserListComponent implements OnInit {
       this.selectedRole = data;
 
       this.editUserForm.patchValue({
-        role: data
+        role: data,
+        modify_by: this.loginuser.user.user_id
       });
 
       this.userService.updateUser(this.editUser.id, this.editUserForm.value, this.loginuser.token).subscribe(
@@ -258,7 +265,8 @@ export class UserListComponent implements OnInit {
       this.editUserForm.setValue({
         user_id: this.editUser.user_id,
         user_name: this.editUser.user_name,
-        role: this.editUser.role.role_id
+        role: this.editUser.role.role_id,
+        modify_by: ''
       });
       button.setAttribute('data-target', '#updateUserModal');
     }
