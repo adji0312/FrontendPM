@@ -78,7 +78,7 @@ export class DashboardComponent implements OnInit {
               },
             },
             tooltip: {
-              enabled: false
+              usePointStyle: true,
             }
           },
           responsive: true,
@@ -138,9 +138,6 @@ export class DashboardComponent implements OnInit {
                   },
                   
                 },
-                tooltip: {
-                  enabled: false
-                }
               },
               responsive: true,
               layout:{
