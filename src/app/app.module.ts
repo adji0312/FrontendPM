@@ -41,7 +41,7 @@ import { SearchProjectFilterPipe } from './project/searchProject-filter.pipe';
 import { SearchProjectTypeFilterPipe } from './projectType/searchProjectType-filter.pipe';
 import { SearchApplicationFilterPipe } from './application/searchApplication-filter.pipe';
 import { SearchBacklogDevFilterPipe } from './backlogDev/searchBacklogDev-filter.pipe';
-// import { OrderByPipe } from './order-by.pipe';
+import { OrderModule } from 'ngx-order-pipe';
 
 @NgModule({
   declarations: [
@@ -73,7 +73,6 @@ import { SearchBacklogDevFilterPipe } from './backlogDev/searchBacklogDev-filter
     SearchProjectTypeFilterPipe,
     SearchApplicationFilterPipe,
     SearchBacklogDevFilterPipe
-    // OrderByPipe
   ],
   imports: [
     BrowserModule,
@@ -84,6 +83,7 @@ import { SearchBacklogDevFilterPipe } from './backlogDev/searchBacklogDev-filter
     NgxPaginationModule,
     TooltipModule.forRoot(),
     Ng2SearchPipeModule,
+    OrderModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
