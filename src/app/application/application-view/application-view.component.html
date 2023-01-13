@@ -33,36 +33,28 @@
                                 <input type="text" name="application_name" class="form-control" id="application_name" [value]="viewApplication.application_name" disabled>
                             </div>
 
+                            <div class="form-group mt-2" *ngIf="viewApplication.application_device">
+                                <label for="application_device" class="mb-1 fs-5"><b>Application Device</b></label>
+                                <input type="text" name="application_device" class="form-control" id="application_device" [value]="viewApplication.application_device" disabled>
+                            </div>
+                            <div class="form-group mt-2" *ngIf="!viewApplication.application_device">
+                                <label for="application_device" class="mb-1 fs-5"><b>Application Device</b></label>
+                                <input type="text" name="application_device" class="form-control" id="application_device" value="none" disabled>
+                            </div>
+
+                            <div class="form-group mt-2">
+                                <label for="application_type" class="mb-1 fs-5"><b>Application Type</b></label>
+                                <input type="text" name="application_type" class="form-control" id="application_type" [value]="viewApplication.application_type" disabled>
+                            </div>
                             
-
                             <div class="form-group mt-2">
-                                <label for="application_short_dsc" class="mb-1 fs-5"><b>Application Device</b></label>
-                                <hr class="m-0" style="width: 50%;">
-                                <div *ngFor="let device of devices" class="">
-                                    <li class="mb-0 mx-2">{{device}}</li>
-                                </div>
-                            </div>
-                            <div class="form-group mt-2">
-                                <label for="application_short_dsc" class="mb-1 fs-5"><b>Application Type</b></label>
-                                <hr class="m-0" style="width: 50%;">
-                                <div *ngFor="let type of types" class="">
-                                    <li class="mb-0 mx-2">{{type}}</li>
-                                </div>
-                            </div>
-                            <div class="form-group mt-2">
-                                <label for="" class="mb-1 fs-5"><b>Application Programming Language</b></label>
-                                <hr class="m-0" style="width: 50%;">
-                                <div *ngFor="let progLang of progLangs" class="">
-                                    <li class="mb-0 mx-2">{{progLang}}</li>
-                                </div>
+                                <label for="application_programming_language" class="mb-1 fs-5"><b>Application Programming Language</b></label>
+                                <input type="text" name="application_programming_language" class="form-control" id="application_programming_language" [value]="viewApplication.application_programming_language" disabled>
                             </div>
 
                             <div class="form-group mt-2">
-                                <label for="application_short_dsc" class="mb-1 fs-5"><b>Server</b></label>
-                                <hr class="m-0" style="width: 50%;">
-                                <div *ngFor="let server of servers" class="">
-                                    <li class="mb-0 mx-2">{{server}}</li>
-                                </div>
+                                <label for="server" class="mb-1 fs-5"><b>Server</b></label>
+                                <input type="text" name="server" class="form-control" id="server" [value]="viewApplication.server" disabled>
                             </div>
                         </div>
 
@@ -70,25 +62,16 @@
 
                         <div style="width: 600px;">
                             <div class="form-group mt-2">
-                                <label for="application_short_dsc" class="mb-1 fs-5"><b>Application Database</b></label>
-                                <hr class="m-0" style="width: 50%;">
-                                <div *ngFor="let database of databases" class="">
-                                    <li class="mb-0 mx-2">{{database}}</li>
-                                </div>
+                                <label for="application_database" class="mb-1 fs-5"><b>Application Database</b></label>
+                                <input type="text" name="application_database" class="form-control" id="application_database" [value]="viewApplication.application_database" disabled>
                             </div>
                             <div class="form-group mt-2">
-                                <label for="application_short_dsc" class="mb-1 fs-5"><b>Application Server</b></label>
-                                <hr class="m-0" style="width: 50%;">
-                                <div *ngFor="let appServer of appServers" class="">
-                                    <li class="mb-0 mx-2">{{appServer}}</li>
-                                </div>
+                                <label for="application_server" class="mb-1 fs-5"><b>Application Server</b></label>
+                                <input type="text" name="application_server" class="form-control" id="application_server" [value]="viewApplication.application_server" disabled>
                             </div>
                             <div class="form-group mt-2">
-                                <label for="application_short_dsc" class="mb-1 fs-5"><b>Application Operating System</b></label>
-                                <hr class="m-0" style="width: 50%;">
-                                <div *ngFor="let oprSystem of oprSystems" class="">
-                                    <li class="mb-0 mx-2">{{oprSystem}}</li>
-                                </div>
+                                <label for="application_operating_system" class="mb-1 fs-5"><b>Application Operating System</b></label>
+                                <input type="text" name="application_operating_system" class="form-control" id="application_operating_system" [value]="viewApplication.application_operating_system" disabled>
                             </div>
 
                             <div class="form-group mt-2">

@@ -1,3 +1,5 @@
+import { Application } from "../application/application";
+
 export class Project{
     id!: number;
     created_by!: string;
@@ -5,6 +7,7 @@ export class Project{
     modify_by!: string;
     modify_date! : Date;
     application!: string;
+    // application: Application = new Application;
     project_type!: string;
     project_code!: string;
     project_bpro!: string;

@@ -10,10 +10,10 @@
         <div class="form-group mb-3 mt-3">
           <div class="d-flex">
             <span class="input-group-text" style="background-color: #f9f8ff;" id="inputGroup-sizing-default"><i class="fa fa-user" style="width: 17px;" aria-hidden="true"></i></span>
-            <input type="text" name="user_id" class="form-control" formControlName="user_id" [(ngModel)]="user.user_id" [ngClass]="{ 'is-invalid' : loginForm.controls['user_id'].touched && loginForm.controls['user_id'].errors}" id="user_id" placeholder="User ID" autocomplete="off">
+            <input type="text" name="userId" class="form-control" formControlName="userId" [(ngModel)]="user.userId" (change)="user.userId = user.userId.toUpperCase()" [ngClass]="{ 'is-invalid' : loginForm.controls['userId'].touched && loginForm.controls['userId'].errors}" id="userId" placeholder="User ID" autocomplete="off">
           </div>
-          <div *ngIf="loginForm.controls['user_id'].touched && loginForm.controls['user_id'].errors" class="text-danger">
-            <div *ngIf="loginForm.controls['user_id'].touched && loginForm.controls['user_id'].errors['required']">
+          <div *ngIf="loginForm.controls['userId'].touched && loginForm.controls['userId'].errors" class="text-danger">
+            <div *ngIf="loginForm.controls['userId'].touched && loginForm.controls['userId'].errors['required']">
                 User ID {{ "form.validation_required" | translate }}
             </div>
           </div>

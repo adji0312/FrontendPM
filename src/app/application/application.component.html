@@ -24,19 +24,43 @@
 
               </div>
             </div>
-            <table class="table table-lg table-striped table-hover text-center" id="excel-table">
+            <table hidden id="excel-table">
               <thead>
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Application Name</th>
+                  <th scope="col" hidden>No</th>
+                  <th scope="col" hidden>Application Name</th>
                   <th scope="col" hidden>Application Short Desc</th>
                   <th scope="col" hidden>Device</th>
-                  <th scope="col">Application Type</th>
+                  <th scope="col" hidden>Application Type</th>
                   <th scope="col" hidden>Programming Language</th>
                   <th scope="col" hidden>Database</th>
                   <th scope="col" hidden>Operating System</th>
                   <th scope="col" hidden>Server</th>
-                  <th scope="col">Application Server</th>
+                  <th scope="col" hidden>Application Server</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let application of applications; let i = index; ">
+                  <th scope="row">{{tableSize * (page - 1) + i+1}}</th>
+                  <td hidden>{{application.application_name}}</td>
+                  <td hidden>{{application.application_short_dsc}}</td>
+                  <td hidden>{{application.application_device}}</td>
+                  <td hidden>{{application.application_type}}</td>
+                  <td hidden>{{application.application_programming_language}}</td>
+                  <td hidden>{{application.application_database}}</td>
+                  <td hidden>{{application.application_operating_system}}</td>
+                  <td hidden>{{application.server}}</td>
+                  <td hidden>{{application.application_server}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-lg table-striped table-hover text-center" >
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">APPLICATION NAME</th>
+                  <th scope="col">APPLICATION TYPE</th>
+                  <th scope="col">APPLICATION DATABASE</th>
                   <th scope="col">{{ "application.header.action" | translate }}</th>
                 </tr>
                 <tr style="background-color: #e3e4f0;">
@@ -47,8 +71,8 @@
                   <th scope="col">
                     <input class="form-control form-control-sm" [(ngModel)]="model.application_type" type="text">
                   </th>
-                  <th scope="col" class="search-hero">
-                    <input class="form-control form-control-sm" [(ngModel)]="model.application_server" type="text">
+                  <th scope="col">
+                    <input class="form-control form-control-sm" [(ngModel)]="model.application_database" type="text">
                   </th>
                   <th scope="col">
                     <button type="button" class="rounded-circle p-1" style=" background-color: #cdd2d6; border: none;" tooltip="Clear Filter" [adaptivePosition]="false">
@@ -60,15 +84,10 @@
               <tbody>
                 <tr *ngFor="let application of applications | searchApplicationFilter: model | paginate:{itemsPerPage: tableSize, currentPage: page, totalItems: count}; let i = index; ">
                   <th scope="row">{{tableSize * (page - 1) + i+1}}</th>
-                  <td>{{application.application_name}}</td>
-                  <td hidden>{{application.application_short_dsc}}</td>
-                  <td hidden>{{application.application_device}}</td>
+                  <td>{{application.application_name.toUpperCase()}}</td>
                   <td>{{application.application_type}}</td>
-                  <td hidden>{{application.application_programming_language}}</td>
-                  <td hidden>{{application.application_database}}</td>
-                  <td hidden>{{application.application_operating_system}}</td>
-                  <td hidden>{{application.server}}</td>
-                  <td>{{application.application_server}}</td>
+                  <!-- <td *ngIf="application.application_server == null">none</td> -->
+                  <td>{{application.application_database}}</td>
                   <td class="d-flex gap-3 justify-content-center">
                     <button type="button" class="rounded-circle" style="background-color: #cdd2d6; border: none;" tooltip="{{'tooltip.edit' | translate}}" [adaptivePosition]="false">
                       <a (click)="onOpenModal(application, 'edit')" type="button"><i class="fa fa-pencil"></i></a>

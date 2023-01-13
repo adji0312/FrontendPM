@@ -91,6 +91,7 @@ export class ApplicationAddComponent implements OnInit {
 
   onChangeDevice(event:any){
     let index = this.selectedDevice.indexOf(event.target.value);
+    console.log(index);
     if(index == -1){
       this.selectedDevice.push(event.target.value);
     }else{
@@ -111,6 +112,7 @@ export class ApplicationAddComponent implements OnInit {
   
   onChangeProgLang(event:any){
     let index = this.selectedProgLang.indexOf(event.target.value);
+    console.log(index);
     if(index == -1){
       this.selectedProgLang.push(event.target.value);
     }else{
@@ -178,11 +180,12 @@ export class ApplicationAddComponent implements OnInit {
     }
     
     this.addList();
+    console.log(this.addList);
     
     this.applicationService.addApplication(this.addApplicationForm.value, this.loginuser.token).subscribe(
       (response: Application) => {
         this.getApplications();
-        console.log(response);
+        // console.log(response);
         Swal.fire({
           position: 'center',
             icon: 'success',

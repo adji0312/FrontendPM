@@ -9,6 +9,8 @@ import { formatDate } from '@angular/common';
 import { ProjectTypeService } from 'src/app/projectType/project-type.service';
 import { ProjectType } from 'src/app/projectType/projectType';
 import { LoginAuthService } from 'src/app/login-auth.service';
+import { Application } from 'src/app/application/application';
+import { ApplicationService } from 'src/app/application/application.service';
 
 
 @Component({
@@ -20,6 +22,7 @@ export class ProjectListComponent implements OnInit {
 
   public projects!: Project[];
   public projectTypes!: ProjectType[];
+  public applications!: Application[];
 
   addProjectForm!: FormGroup;
   editProjectForm!: FormGroup;
@@ -41,6 +44,7 @@ export class ProjectListComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private projectTypeService: ProjectTypeService,
+    private applicationService: ApplicationService,
     private formBuilder: FormBuilder,
     private authservice: LoginAuthService) {
     this.authservice.isLoggedIn();
@@ -68,6 +72,7 @@ export class ProjectListComponent implements OnInit {
   ngOnInit(): void {
     this.getProjects();
     this.getProjectTypes();
+    this.getApplications();
   }
 
   clear(){
@@ -90,6 +95,12 @@ export class ProjectListComponent implements OnInit {
     this.projectTypeService.getProjectTypes(this.loginuser.token).subscribe(data => {
         this.projectTypes = data;
     });
+  }
+
+  private getApplications(){
+    this.applicationService.getAllApplications(this.loginuser.token).subscribe(data => {
+      this.applications = data;
+    })
   }
 
   onTableDataChange(event: any){
@@ -216,7 +227,8 @@ export class ProjectListComponent implements OnInit {
     if(mode === 'add'){
       button.setAttribute('data-target', '#addProjectModal');
       this.addProjectForm.patchValue({
-        project_type: null
+        project_type: null,
+        application: null
       });
     }
     if(mode === 'edit'){

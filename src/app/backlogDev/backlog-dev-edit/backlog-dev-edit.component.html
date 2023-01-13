@@ -88,7 +88,7 @@
                       <label for="disabledTextInput" class="form-label mb-0">PIC PM</label>
                       <select class="input-group form-select col-10" formControlName="pic_PM">
                         <option [value]="null" disabled>--{{ "backlogDev.form.choose_Dev" | translate }}--</option>
-                        <option *ngFor="let pic of picPM" [value]="pic.user_id">{{ pic.user_name }}</option>
+                        <option *ngFor="let pic of picPM" [value]="pic.userId">{{ pic.user_name }}</option>
                       </select>
                     </div>
                     <div class="">
@@ -116,7 +116,7 @@
                         </div>
                         <select class="input-group form-select col-10" formControlName="pic_Dev" name="pic_Dev" id="pic_Dev" style="width: 50%;">
                           <option [value]="null" disabled>--{{ "backlogDev.form.choose_Dev" | translate }}--</option>
-                          <option *ngFor="let pic of picDev" [value]="pic.user_id">{{ pic.user_name }}</option>
+                          <option *ngFor="let pic of picDev" [value]="pic.userId">{{ pic.user_name }}</option>
                         </select>
                         <div class="d-flex col-3">
                           <button *ngIf="isLast" class="btn btn-sm btn-light ms-3" style="border: none;"

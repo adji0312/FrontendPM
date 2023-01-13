@@ -31,7 +31,7 @@
               <tr style="background-color: #e3e4f0;">
                 <th scope="col"><i class="fas fa-filter"></i></th>
                 <th scope="col">
-                  <input class="form-control form-control-sm" [(ngModel)]="model.user_id" type="text">
+                  <input class="form-control form-control-sm" [(ngModel)]="model.userId" type="text">
                 </th>
                 <th scope="col">
                   <input class="form-control form-control-sm" [(ngModel)]="model.user_name" type="text">
@@ -51,7 +51,7 @@
               <tr
                 *ngFor="let user of users | orderBy: 'user_id' | searchUserFilter: model |paginate:{itemsPerPage: tableSize, currentPage: page, totalItems: count}; let i = index;">
                 <th scope="row">{{tableSize * (page - 1) + i+1}}</th>
-                <td>{{user.user_id}}</td>
+                <td>{{user.userId}}</td>
                 <td>{{user.user_name}}</td>
                 <td>{{user.role.role_name}}</td>
                 <td class="d-flex gap-3 justify-content-center">
@@ -93,18 +93,18 @@
               <div class="modal-body">
                 <form [formGroup]="addUserForm" (ngSubmit)="onAddUser()">
                   <div class="form-group">
-                    <label for="user_id">{{ "user.form.user_id" | translate }}</label>
-                    <input type="text" name="user_id" formControlName="user_id"
-                      [ngClass]="{ 'is-invalid' : addUserForm.controls['user_id'].touched && addUserForm.controls['user_id'].errors}"
-                      class="form-control" id="user_id" placeholder="{{ 'user.form.user_id' | translate }}">
-                    <div *ngIf="addUserForm.controls['user_id'].touched && addUserForm.controls['user_id'].errors"
+                    <label for="userId">{{ "user.form.userId" | translate }}</label>
+                    <input type="text" name="userId" formControlName="userId"
+                      [ngClass]="{ 'is-invalid' : addUserForm.controls['userId'].touched && addUserForm.controls['userId'].errors}"
+                      class="form-control" id="userId" placeholder="{{ 'user.form.userId' | translate }}">
+                    <div *ngIf="addUserForm.controls['userId'].touched && addUserForm.controls['userId'].errors"
                       class="text-danger">
                       <div
-                        *ngIf="addUserForm.controls['user_id'].touched && addUserForm.controls['user_id'].errors['required']">
-                        {{ "user.form.user_id" | translate }} {{ "form.validation_required" | translate }}
+                        *ngIf="addUserForm.controls['userId'].touched && addUserForm.controls['userId'].errors['required']">
+                        {{ "user.form.userId" | translate }} {{ "form.validation_required" | translate }}
                       </div>
                       <div
-                        *ngIf="addUserForm.controls['user_id'].touched && addUserForm.controls['user_id'].errors['maxlength']">
+                        *ngIf="addUserForm.controls['userId'].touched && addUserForm.controls['userId'].errors['maxlength']">
                         {{"form.validation_maxlength" | translate:({
                         value: "10" | translate
                         }) }}
@@ -123,7 +123,7 @@
                         {{ "user.form.user_name" | translate }} {{ "form.validation_required" | translate }}
                       </div>
                       <div
-                        *ngIf="addUserForm.controls['user_id'].touched && addUserForm.controls['user_name'].errors['maxlength']">
+                        *ngIf="addUserForm.controls['userId'].touched && addUserForm.controls['user_name'].errors['maxlength']">
                         {{"form.validation_maxlength" | translate:({
                         value: "25" | translate
                         }) }}
@@ -166,24 +166,24 @@
           <div class="modal-dialog" user="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="updateUserModal">{{ "user.edit" | translate }} {{editUser.user_id}}</h5>
+                <h5 class="modal-title" id="updateUserModal">{{ "user.edit" | translate }} {{editUser.userId}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <form [formGroup]="editUserForm" (ngSubmit)="onUpdateUser()">
                   <div class="form-group">
-                    <label for="user_id">{{ "user.form.user_id" | translate }}</label>
-                    <input type="text" name="user_id" formControlName="user_id"
-                      [ngClass]="{ 'is-invalid' : editUserForm.controls['user_id'].touched && editUserForm.controls['user_id'].errors}"
-                      class="form-control" id="user_id" placeholder="User ID">
-                    <div *ngIf="editUserForm.controls['user_id'].touched && editUserForm.controls['user_id'].errors"
+                    <label for="userId">{{ "user.form.userId" | translate }}</label>
+                    <input type="text" name="userId" formControlName="userId"
+                      [ngClass]="{ 'is-invalid' : editUserForm.controls['userId'].touched && editUserForm.controls['userId'].errors}"
+                      class="form-control" id="userId" placeholder="User ID">
+                    <div *ngIf="editUserForm.controls['userId'].touched && editUserForm.controls['userId'].errors"
                       class="text-danger">
                       <div
-                        *ngIf="editUserForm.controls['user_id'].touched && editUserForm.controls['user_id'].errors['required']">
-                        {{ "user.form.user_id" | translate }} {{ "form.validation_required" | translate }}
+                        *ngIf="editUserForm.controls['userId'].touched && editUserForm.controls['userId'].errors['required']">
+                        {{ "user.form.userId" | translate }} {{ "form.validation_required" | translate }}
                       </div>
                       <div
-                        *ngIf="editUserForm.controls['user_id'].touched && editUserForm.controls['user_id'].errors['maxlength']">
+                        *ngIf="editUserForm.controls['userId'].touched && editUserForm.controls['userId'].errors['maxlength']">
                         {{"form.validation_maxlength" | translate:({
                         value: "10" | translate
                         }) }}
@@ -202,7 +202,7 @@
                         {{ "user.form.user_name" | translate }} {{ "form.validation_required" | translate }}
                       </div>
                       <div
-                        *ngIf="editUserForm.controls['user_id'].touched && editUserForm.controls['user_name'].errors['maxlength']">
+                        *ngIf="editUserForm.controls['userId'].touched && editUserForm.controls['user_name'].errors['maxlength']">
                         {{"form.validation_maxlength" | translate:({
                         value: "25" | translate
                         }) }}
@@ -250,85 +250,154 @@
               <div class="modal-body">
                 <form #editForm="ngForm">
                   <div class="form-group">
-                    <label>{{ "user.form.user_id" | translate }}</label>
-                    <input type="text" [value]="viewUser.user_id" name="user_id" class="form-control" id="user_id"
+                    <label>{{ "user.form.userId" | translate }}</label>
+                    <input type="text" [value]="viewUser.userId" name="userId" class="form-control" id="userId"
                       placeholder="User ID" disabled>
                   </div>
-                  <div class="form-group">
-                    <label>{{ "user.form.user_name" | translate }}</label>
-                    <input type="text" [value]="viewUser.user_name" name="user_name" class="form-control" id="user_name"
-                      placeholder="User Name" disabled>
-                  </div>
-                  <div class="form-group">
-                    <label>Role ID</label>
-                    <input type="text" [value]="viewUser.role.role_id" class="form-control" name="role_id" disabled>
-                  </div>
-                  <div class="form-group">
-                    <label>Role</label>
-                    <input type="text" [value]="viewUser.role.role_name" class="form-control" name="role_name" disabled>
-                  </div>
-                  <div class="form-group">
-                    <label>{{ "user.form.role_desc" | translate }}</label>
-                    <input type="text" [value]="viewUser.role.role_desc" class="form-control" name="role_desc" disabled>
-                  </div>
-                  <div class="d-flex justify-content-between mt-3 mb-3">
-                    <div class="form-group">
-                      <label for="created_by">{{ "form.created_by" | translate }}</label>
-                      <input type="text" [value]="viewUser.created_by" name="created_by" class="form-control"
-                        id="created_by" disabled>
-                    </div>
-                    <div class="form-group">
-                      <label for="modify_by">{{ "form.modify_by" | translate }}</label>
-                      <input type="text" [value]="viewUser.modify_by" name="modify_by" class="form-control"
-                        id="modify_by" disabled>
-                    </div>
-                  </div>
-                  <div class="d-flex justify-content-between mb-3">
-                    <div class="form-group">
-                      <label for="created_date">{{ "form.created_date" | translate }}</label>
-                      <input type="text" [value]="viewUser.created_date | date: 'dd MMM yyyy  HH:mm:ss'"
-                        name="created_date" class="form-control" id="created_date" disabled>
-                    </div>
-                    <div class="form-group">
-                      <label for="modify_date">{{ "form.modify_date" | translate }}</label>
-                      <input type="text" [value]="viewUser.modify_date | date: 'dd MMM yyyy  HH:mm:ss'"
-                        name="modify_date" class="form-control" id="modify_date" disabled>
-                    </div>
-                  </div>
-                  <div class="modal-footer p-0 m-0">
-                    <button type="button" id="edit-user-form" data-bs-dismiss="modal"
-                      class="mt-3 mb-0 btn btn-secondary bg-danger" style="border: none;"><i class=" fas fa-times"></i>
-                      {{ "button.close" | translate }}</button>
-                  </div>
-                </form>
+                  <!-- <div
+                    *ngIf="editUserForm.controls['userId'].touched && editUserForm.controls['userId'].errors['maxlength']">
+                    {{"form.validation_maxlength" | translate:({
+                    value: "10" | translate
+                    }) }}
+                  </div> -->
+            <div class="form-group">
+              <label for="user_name">{{ "user.form.user_name" | translate }}</label>
+              <input type="text" name="user_name" formControlName="user_name"
+                [ngClass]="{ 'is-invalid' : editUserForm.controls['user_name'].touched && editUserForm.controls['user_name'].errors}"
+                class="form-control" id="user_name" placeholder="User Name">
+              <div *ngIf="editUserForm.controls['user_name'].touched && editUserForm.controls['user_name'].errors"
+                class="text-danger">
+                <div
+                  *ngIf="editUserForm.controls['user_name'].touched && editUserForm.controls['user_name'].errors['required']">
+                  {{ "user.form.user_name" | translate }} {{ "form.validation_required" | translate }}
+                </div>
+                <div
+                  *ngIf="editUserForm.controls['user_id'].touched && editUserForm.controls['user_name'].errors['maxlength']">
+                  {{"form.validation_maxlength" | translate:({
+                  value: "25" | translate
+                  }) }}
+                </div>
               </div>
             </div>
+            <div class="form-group">
+              <label for="role">User Role</label> <br>
+              <select class="input-group form-select" formControlName="role" name="role"
+                [ngClass]="{ 'is-invalid' : editUserForm.controls['role'].touched && editUserForm.controls['role'].errors}">
+                <option *ngFor="let role of roles" [value]="role.role_id">
+                  {{role.role_name}}
+                </option>
+              </select>
+              <div *ngIf="editUserForm.controls['role'].touched && editUserForm.controls['role'].errors"
+                class="text-danger">
+                <div *ngIf="editUserForm.controls['role'].touched && editUserForm.controls['role'].errors['required']">
+                  User Role {{ "form.validation_required" | translate }}
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer p-0 m-0">
+              <button type="button" id="edit-user-form" data-bs-dismiss="modal"
+                class="mt-3 mb-0 btn btn-secondary bg-danger" style="border: none;"><i class=" fas fa-times"></i>
+                {{ "button.close" | translate }}</button>
+              <button [disabled]="editUserForm.invalid" type="submit" class="mt-3 mb-0 btn btn-primary"
+                style="background-color: #0abe03; border: none;"><i class="fa fa-floppy-o" aria-hidden="true"></i>
+                {{ "button.save_changes" | translate }}</button>
+            </div>
+            </form>
           </div>
         </div>
       </div>
-
-      <!-- Delete User Modal -->
-      <div class="modal fade" id="deleteUserModal" tabindex="-1" user="dialog" aria-labelledby="deleteModelLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" user="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="deleteModelLabel">{{ "user.delete" | translate }}</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p>{{ "user.delete_confirm" | translate }} {{deleteUser.user_name}} ?</p>
-              <div class="modal-footer p-0 m-0">
-                <button type="button" id="delete-user" class="mt-3 mb-0 btn btn-secondary" data-bs-dismiss="modal"
-                  style="border: none;"><i class="fas fa-times"></i> {{ "button.no" | translate }}</button>
-                <button (click)="onDeleteUser(deleteUser.id)" class="mt-3 mb-0 btn btn-danger" data-dismiss="modal"
-                  style="border: none;"><i class="fas fa-check"></i> {{ "button.yes" | translate }}</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </main>
   </div>
+
+  <!-- View User Modal -->
+  <div class="modal fade" id="viewUserModal" tabindex="-1" user="dialog" aria-hidden="true">
+    <div class="modal-dialog" user="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="viewUserModal">{{ "user.detail" | translate }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form #editForm="ngForm">
+            <div class="form-group">
+              <label>{{ "user.form.user_id" | translate }}</label>
+              <input type="text" [value]="viewUser.userId" name="user_id" class="form-control" id="user_id"
+                placeholder="User ID" disabled>
+            </div>
+            <div class="form-group">
+              <label>{{ "user.form.user_name" | translate }}</label>
+              <input type="text" [value]="viewUser.user_name" name="user_name" class="form-control" id="user_name"
+                placeholder="User Name" disabled>
+            </div>
+            <div class="form-group">
+              <label>Role ID</label>
+              <input type="text" [value]="viewUser.role.role_id" class="form-control" name="role_id" disabled>
+            </div>
+            <div class="form-group">
+              <label>Role</label>
+              <input type="text" [value]="viewUser.role.role_name" class="form-control" name="role_name" disabled>
+            </div>
+            <div class="form-group">
+              <label>{{ "user.form.role_desc" | translate }}</label>
+              <input type="text" [value]="viewUser.role.role_desc" class="form-control" name="role_desc" disabled>
+            </div>
+            <div class="d-flex justify-content-between mt-3 mb-3">
+              <div class="form-group">
+                <label for="created_by">{{ "form.created_by" | translate }}</label>
+                <input type="text" [value]="viewUser.created_by" name="created_by" class="form-control" id="created_by"
+                  disabled>
+              </div>
+              <div class="form-group">
+                <label for="modify_by">{{ "form.modify_by" | translate }}</label>
+                <input type="text" [value]="viewUser.modify_by" name="modify_by" class="form-control" id="modify_by"
+                  disabled>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+              <div class="form-group">
+                <label for="created_date">{{ "form.created_date" | translate }}</label>
+                <input type="text" [value]="viewUser.created_date | date: 'dd MMM yyyy  HH:mm:ss'" name="created_date"
+                  class="form-control" id="created_date" disabled>
+              </div>
+              <div class="form-group">
+                <label for="modify_date">{{ "form.modify_date" | translate }}</label>
+                <input type="text" [value]="viewUser.modify_date | date: 'dd MMM yyyy  HH:mm:ss'" name="modify_date"
+                  class="form-control" id="modify_date" disabled>
+              </div>
+            </div>
+            <div class="modal-footer p-0 m-0">
+              <button type="button" id="edit-user-form" data-bs-dismiss="modal"
+                class="mt-3 mb-0 btn btn-secondary bg-danger" style="border: none;"><i class=" fas fa-times"></i>
+                {{ "button.close" | translate }}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete User Modal -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" user="dialog" aria-labelledby="deleteModelLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" user="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModelLabel">{{ "user.delete" | translate }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>{{ "user.delete_confirm" | translate }} {{deleteUser.user_name}} ?</p>
+        <div class="modal-footer p-0 m-0">
+          <button type="button" id="delete-user" class="mt-3 mb-0 btn btn-secondary" data-bs-dismiss="modal"
+            style="border: none;"><i class="fas fa-times"></i> {{ "button.no" | translate }}</button>
+          <button (click)="onDeleteUser(deleteUser.id)" class="mt-3 mb-0 btn btn-danger" data-dismiss="modal"
+            style="border: none;"><i class="fas fa-check"></i> {{ "button.yes" | translate }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
 </div>

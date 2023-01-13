@@ -104,9 +104,12 @@
                 <form [formGroup]="addProjectForm" (ngSubmit)="onAddProject()">
                   <div class="form-group">
                     <label for="application">{{ "project.form.app" | translate }}</label>
-                    <input type="text" name="application" formControlName="application"
-                      [ngClass]="{ 'is-invalid' : addProjectForm.controls['application'].touched && addProjectForm.controls['application'].errors}"
-                      class="form-control" id="application" placeholder=" {{ 'project.form.app' | translate }}">
+                    <select class="input-group form-select" formControlName="application" name="application" [ngClass]="{ 'is-invalid' : addProjectForm.controls['application'].touched && addProjectForm.controls['application'].errors}">
+                      <option [value]="null" disabled>--{{ "project.form.choose_app" | translate }}--</option>
+                      <option *ngFor= "let app of applications" [ngValue]="app.application_name">
+                        {{app.application_name}}
+                      </option>
+                    </select>
                     <div
                       *ngIf="addProjectForm.controls['application'].touched && addProjectForm.controls['application'].errors"
                       class="text-danger">
@@ -230,10 +233,15 @@
                 <form [formGroup]="editProjectForm" (ngSubmit)="onUpdateProject()">
                   <div class="form-group">
                     <label for="application">{{ "project.form.app" | translate }}</label>
-                    <input type="text" name="application"
+                    <select class="input-group form-select" formControlName="application" name="application" [ngClass]="{ 'is-invalid' : addProjectForm.controls['application'].touched && addProjectForm.controls['application'].errors}">
+                      <option *ngFor= "let app of applications" [ngValue]="app.application_name">
+                        {{app.application_name}}
+                      </option>
+                    </select>
+                    <!-- <input type="text" name="application"
                       formControlName="application"
                       [ngClass]="{ 'is-invalid' : editProjectForm.controls['application'].touched && editProjectForm.controls['application'].errors}"
-                      class="form-control" id="application">
+                      class="form-control" id="application"> -->
                     <div
                       *ngIf="editProjectForm.controls['application'].touched && editProjectForm.controls['application'].errors"
                       class="text-danger">

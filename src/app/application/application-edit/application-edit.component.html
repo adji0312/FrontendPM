@@ -1,5 +1,4 @@
 <app-sidebar></app-sidebar>
-{{devices}}
 
 <!-- <div class="container-fluid">
     <div class="row">
@@ -28,11 +27,10 @@
                 <i class="fa fa-tachometer" style="color: #c9c9c9; font-size: 15pt;" aria-hidden="true"></i> Dashboard&nbsp; &nbsp;
               </h5>
             </a>
-            <a href="/backlogDevelopment" class="text-decoration-none">
+            
               <h5 style="color: #949494;">
                 <i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp; &nbsp; Edit Application
               </h5>
-            </a>
         </div>
         <div class="container position-relative" id="main-container">
             <div class="container p-2 border rounded shadow mt-4 mb-4 bg-light">
@@ -48,12 +46,12 @@
                   <div style="width: 600px;">
                     <div class="form-group mt-2">
                       <label for="application_name" class="mb-1 fs-5"><b>Application Name</b></label>
-                      <input type="text" name="application_name" class="form-control" id="application_name" [value]="viewApplication.application_name">
+                      <input type="text" name="application_name" class="form-control" [(ngModel)]="editApplication.application_name" formControlName="application_name">
                     </div>
 
                     <div class="form-group mt-2">
                       <label for="application_short_dsc" class="mb-1 fs-5"><b>Application Short Description</b></label>
-                      <textarea type="text" name="application_short_dsc" class="form-control" id="application_short_dsc" [value]="viewApplication.application_short_dsc"></textarea>
+                      <textarea type="text" name="application_short_dsc" class="form-control" id="application_short_dsc" [(ngModel)]="editApplication.application_short_dsc" formControlName="application_short_dsc"></textarea>
                     </div>
 
                     <div class="form-group mt-2">
@@ -62,7 +60,7 @@
                       <div class="container mt-2 d-flex gap-5">
                         <div class="row justify-content-between">
                           <div class="col-xs-5 col-sm-5 form-check">
-                            <input class="form-check-input" type="checkbox" value="Web" id="application_device" name="application_device" formControlName="application_device" (change)="onChangeDevice($event)">
+                            <input class="form-check-input" type="checkbox" value="Web" id="application_device" name="application_device" (change)="onChangeDevice($event)" value="Web" [checked]="devices[0] == 'Web' || devices[1] == 'Web'">
                             <label class="form-check-label" for="application_device">
                               <small>Web</small>
                             </label>
@@ -70,7 +68,7 @@
                         </div>
                         <div class="row justify-content-between">
                           <div class="col-xs-5 col-sm-5 form-check">
-                            <input class="form-check-input" type="checkbox" value="Mobile" id="application_device" name="application_device" formControlName="application_device" (change)="onChangeDevice($event)">
+                            <input class="form-check-input" type="checkbox" value="Mobile" id="application_device" name="application_device" (change)="onChangeDevice($event)" value="Mobile" [checked]="devices[0] == 'Mobile' || devices[1] == 'Mobile'">
                             <label class="form-check-label" for="application_device">
                               <small>Mobile</small>
                             </label>
@@ -84,7 +82,7 @@
                       <div class="container mt-2">
                         <div class="row justify-content-between">
                           <div class="col-xs-5 col-sm-5 form-check" *ngFor="let tp of types">
-                            <input class="form-check-input" type="checkbox" [value]="tp.app_type_name" id="application_type" name="application_type" formControlName="application_type" (change)="onChangeType($event)" checked>
+                            <input class="form-check-input" type="checkbox" [value]="tp.app_type_name" id="application_type" name="application_type" (change)="onChangeType($event)" [checked]="tp.app_type_name == appTypes[0] || tp.app_type_name == appTypes[1] || tp.app_type_name == appTypes[2] || tp.app_type_name == appTypes[3] || tp.app_type_name == appTypes[4] || tp.app_type_name == appTypes[5]">
                             <label class="form-check-label" for="application_type">
                               <small>{{ tp.app_type_name }}</small>
                             </label>
@@ -99,7 +97,7 @@
                       <div class="container mt-2">
                         <div class="row justify-content-between">
                           <div class="col-xs-5 col-sm-5 form-check" *ngFor="let progLang of progLangs">
-                            <input *ngFor="let prog of appProgLangs" class="form-check-input" type="checkbox" [value]="progLang.app_prog_lang_name" id="application_programming_language" name="application_programming_language"(change)="onChangeProgLang($event)" [checked]="prog == progLang.app_prog_lang_name">
+                            <input class="form-check-input" type="checkbox" [value]="progLang.app_prog_lang_name" id="application_programming_language" name="application_programming_language"(change)="onChangeProgLang($event)" [checked]="progLang.app_prog_lang_name == appProgLangs[0] || progLang.app_prog_lang_name == appProgLangs[1] || progLang.app_prog_lang_name == appProgLangs[2] || progLang.app_prog_lang_name == appProgLangs[3] || progLang.app_prog_lang_name == appProgLangs[4] || progLang.app_prog_lang_name == appProgLangs[5]">
                             <label class="form-check-label" for="application_programming_language">
                               <small>{{ progLang.app_prog_lang_name }}</small>
                             </label>
@@ -114,7 +112,7 @@
                       <div class="container mt-2">
                         <div class="row justify-content-between">
                           <div class="col-xs-5 col-sm-5 form-check" *ngFor="let server of servers">
-                            <input class="form-check-input" type="checkbox" [value]="server.server_name" id="server" name="server" formControlName="server" (change)="onChangeServer($event)">
+                            <input class="form-check-input" type="checkbox" [value]="server.server_name" id="server" name="server" (change)="onChangeServer($event)" [checked]="server.server_name == serverApp[0] || server.server_name == serverApp[1] || server.server_name == serverApp[2] || server.server_name == serverApp[3] || server.server_name == serverApp[4] || server.server_name == serverApp[5]">
                             <label class="form-check-label totip" for="server">
                               <small class="totipText">{{ server.server_name }}</small>
                               <small>{{ server.server_name | slice:0:20 }}..</small>
@@ -128,13 +126,14 @@
                   <div style="border-left:1px solid rgb(221, 221, 221);height: 900px" class="my-4"></div>
 
                   <div style="width: 600px;">
+
                     <div class="form-group mt-2">
                       <label for="" class="mb-1 fs-5"><b>Application Database</b></label>
                       <hr class="m-0" style="width: 50%;">
                       <div class="container mt-2">
                         <div class="row justify-content-between">
                           <div class="col-xs-5 col-sm-5 form-check" *ngFor="let db of databases">
-                            <input class="form-check-input" type="checkbox" [value]="db.app_database_name" id="application_database" name="application_database" formControlName="application_database" (change)="onChangeDatabase($event)">
+                            <input  class="form-check-input" type="checkbox" [value]="db.app_database_name" id="application_database" name="application_database" (change)="onChangeDatabase($event)" [checked]="db.app_database_name == appDatabases[0] || db.app_database_name == appDatabases[1] || db.app_database_name == appDatabases[2] || db.app_database_name == appDatabases[3] || db.app_database_name == appDatabases[4] || db.app_database_name == appDatabases[5]">
                             <label class="form-check-label totip" for="application_database">
                               <small class="totipText">{{ db.app_database_name }}</small>
                               <small>{{ db.app_database_name | slice:0:20 }}..</small>
@@ -150,7 +149,7 @@
                       <div class="container mt-2">
                         <div class="row justify-content-between">
                           <div class="col-xs-5 col-sm-5 form-check" *ngFor="let sv of serversApp">
-                            <input class="form-check-input" type="checkbox" [value]="sv.app_server_name" id="application_server" name="application_server" formControlName="application_server" (change)="onChangeAppServer($event)">
+                            <input class="form-check-input" type="checkbox" [value]="sv.app_server_name" id="application_server" name="application_server" (change)="onChangeAppServer($event)" [checked]="sv.app_server_name == appServers[0] || sv.app_server_name == appServers[1] || sv.app_server_name == appServers[2] || sv.app_server_name == appServers[3] || sv.app_server_name == appServers[4] || sv.app_server_name == appServers[5]">
                             <label class="form-check-label totip" for="application_server">
                               <small class="totipText">{{ sv.app_server_name }}</small>
                               <small>{{ sv.app_server_name | slice:0:20 }}..</small>
@@ -165,23 +164,17 @@
                       <hr class="m-0" style="width: 50%;">
                       <div class="container mt-2">
                         <div class="row justify-content-between">
-                          <div class="col-xs-5 col-sm-5 form-check" *ngFor="let opS of oprSys">
-                            <input class="form-check-input" type="checkbox" [value]="opS.app_op_system_name" id="application_operating_system" name="application_operating_system" formControlName="application_operating_system" (change)="onChangeOprSys($event)">
+                          <div class="col-xs-5 col-sm-5 form-check" *ngFor="let ops of oprSys">
+                            <input class="form-check-input" type="checkbox" [value]="ops.app_op_system_name" id="application_operating_system" name="application_operating_system" (change)="onChangeOprSys($event)" [checked]="ops.app_op_system_name == oprSystems[0] || ops.app_op_system_name == oprSystems[1] || ops.app_op_system_name == oprSystems[2] || ops.app_op_system_name == oprSystems[3] || ops.app_op_system_name == oprSystems[4] || ops.app_op_system_name == oprSystems[5]">
                             <label class="form-check-label totip" for="application_operating_system">
-                              <small class="totipText">{{ opS.app_op_system_name }}</small>
-                              <small>{{ opS.app_op_system_name | slice:0:20 }}..</small>
+                              <small class="totipText">{{ ops.app_op_system_name }}</small>
+                              <small>{{ ops.app_op_system_name | slice:0:20 }}..</small>
                             </label>
                           </div>
                         </div>
                       </div>
                     </div>
-
-                    
-                    
-                    
                   </div>
-
-                  
                 </div>
 
                 <div class="text-right d-flex justify-content-end mt-3 mb-2">

@@ -34,8 +34,8 @@ export class ApplicationService {
     return this.http.delete<void>(`${this.baseUrl}/delete/${id}`, {headers: headers});
   }
 
-  public updateApplication(id: number, app: any, token: any):Observable<Application>{
+  public updateApplication(id: number, app: Application, token: any):Observable<Application>{
     const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
-    return this.http.put<Application>(`${this.baseUrl}/update/${id}`, app, {headers: headers});
+    return this.http.put<Application>(`${this.baseUrl}/update/${id}`,app, {headers: headers});
   }
 }

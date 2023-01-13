@@ -34,6 +34,8 @@ export class ApplicationComponent implements OnInit {
   realTimeDataSubscription$!: Subscription;
   model: SearchModelApplication = new SearchModelApplication;
 
+  dataSource = Application;
+
   private loadData(){
     this.getApplications();
   }
@@ -62,7 +64,7 @@ export class ApplicationComponent implements OnInit {
   clear(){
     this.model.application_name = '',
     this.model.application_type = '',
-    this.model.application_server = ''
+    this.model.application_database = ''
   }
 
   private getApplications(){
@@ -185,4 +187,12 @@ export class ApplicationComponent implements OnInit {
     /* save to file */  
     XLSX.writeFile(wb, this.fileName);
   }
+
+  // exportArray(){
+  //   const table: Partial<Application>[] = this.dataSource.map(x => ({
+  //     application_name: x.application_name,
+  //     application_type: x.application_type
+  //   }));
+  //   TableUtil.
+  // }
 }

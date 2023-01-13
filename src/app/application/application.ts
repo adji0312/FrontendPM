@@ -14,5 +14,5 @@ export class Application{
 export class SearchModelApplication{
     application_name!: string;
     application_type!: string;
-    application_server!: string;
+    application_database!: string;
 }

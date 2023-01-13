@@ -68,14 +68,14 @@ export class UserListComponent implements OnInit {
     this.authService.isLoggedIn();
     this.loginuser = JSON.parse(localStorage.getItem('currentUser') as string);
     this.addUserForm = this.formBuilder.group({
-      user_id: ['', [Validators.required, Validators.maxLength(10)]],
+      userId: ['', [Validators.required, Validators.maxLength(10)]],
       user_name: ['', [Validators.required, Validators.maxLength(25)]],
       role: ['', [Validators.required]],
       created_by: ['']
     });
 
     this.editUserForm = this.formBuilder.group({
-      user_id: ['', [Validators.required, Validators.maxLength(10)]],
+      userId: ['', [Validators.required, Validators.maxLength(10)]],
       user_name: ['', [Validators.required, Validators.maxLength(25)]],
       role: ['', Validators.required],
       modify_by: ['']
@@ -87,18 +87,20 @@ export class UserListComponent implements OnInit {
     this.loadData();
     this.userService.getUser(this.loginuser.token).subscribe(user => {
       this.user = user;
+      // console.log(user);
     }, err => {
       // console.log(err);
     })
 
     this.userService.getAllUsers(this.loginuser.token).subscribe((data: any) => {
       this.listUser = data;
+      // console.log(data);
     });
   }
 
   
   clear(){
-    this.model.user_id = '',
+    this.model.userId = '',
     this.model.user_name = '',
     this.model.role = ''
   }
@@ -263,7 +265,7 @@ export class UserListComponent implements OnInit {
     if (mode === 'edit') {
       this.editUser = user;
       this.editUserForm.setValue({
-        user_id: this.editUser.user_id,
+        userId: this.editUser.userId,
         user_name: this.editUser.user_name,
         role: this.editUser.role.role_id,
         modify_by: ''

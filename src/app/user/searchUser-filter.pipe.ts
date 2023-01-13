@@ -14,7 +14,7 @@ export class SearchUserFilterPipe implements PipeTransform {
     if(!users || users.length === 0) return users;
 
     // blank search
-    if(!userSearch || !userSearch.user_id && !userSearch.user_name && !userSearch.role){
+    if(!userSearch || !userSearch.userId && !userSearch.user_name && !userSearch.role){
       // console.log(userSearch);
       return users;
     }
@@ -24,7 +24,7 @@ export class SearchUserFilterPipe implements PipeTransform {
 
     return users.filter((user) => {
       // console.log(user.user_name);
-        return (!userSearch.user_id || user.user_id.toLowerCase().includes(userSearch.user_id) || user.user_id.includes(userSearch.user_id)) &&
+        return (!userSearch.userId || user.userId.toLowerCase().includes(userSearch.userId) || user.userId.includes(userSearch.userId)) &&
             (!userSearch.user_name || user.user_name.toLowerCase().includes(userSearch.user_name) || user.user_name.includes(userSearch.user_name)) && 
             (!userSearch.role || user.role.role_name.toLowerCase().includes(userSearch.role) || user.role.role_name.includes(userSearch.role));
     })

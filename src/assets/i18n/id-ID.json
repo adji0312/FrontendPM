@@ -9,7 +9,7 @@
     "name": "NAMA PENGGUNA",
     "action": "AKSI",
     "form":{
-      "user_id": "User ID",
+      "userId": "User ID",
       "user_name": "Nama Pengguna",
       "choose_role": "Pilih Role",
       "role_desc": "Deskripsi Role"
@@ -56,7 +56,8 @@
       "bpro": "BPRO",
       "status": "Status",
       "desc": "Deskripsi",
-      "kick_off": "Kick Off"
+      "kick_off": "Kick Off",
+      "choose_app": "Pilih Application"
     },
     "edit": "Ubah Project",
     "detail": "Detail Project",

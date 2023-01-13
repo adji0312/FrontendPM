@@ -250,7 +250,7 @@ export class BacklogDevEditComponent implements OnInit {
 
       for (let i = 0; i < picDevs.length; i++) {
         for (let j = 0; j < this.users.length; j++) {
-          if(picDevs[i].pic_id == this.users[j].user_id){
+          if(picDevs[i].pic_id == this.users[j].userId){
             this.formArray.push(this.formBuilder.group({
               pic_Dev: this.users[j],
             }));
@@ -260,8 +260,8 @@ export class BacklogDevEditComponent implements OnInit {
 
       for (let i = 0; i < picDevs.length; i++) {
         for (let j = 0; j < this.users.length; j++) {
-          if(picDevs[i].pic_id == this.users[j].user_id){
-            this.formArray.at(i).get("pic_Dev").patchValue(this.users[j].user_id);
+          if(picDevs[i].pic_id == this.users[j].userId){
+            this.formArray.at(i).get("pic_Dev").patchValue(this.users[j].userId);
           }
         }
       }

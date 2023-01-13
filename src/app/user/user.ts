@@ -7,7 +7,7 @@ export class User{
     created_date!: Date;
     modify_by!: string;
     modify_date! : Date;
-    user_id!: string;
+    userId!: string;
     user_name!: string;
     user_desc!: string;
     role: Role = new Role;
@@ -19,7 +19,7 @@ export class User{
 }
 
 export class SearchModelUser {
-  user_id!: string;
+  userId!: string;
   user_name!: string;
   role!: string;
 }

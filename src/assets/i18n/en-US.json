@@ -9,7 +9,7 @@
     "name": "USER NAME",
     "action": "ACT",
     "form":{
-      "user_id": "User ID",
+      "userId": "User ID",
       "user_name": "User Name",
       "choose_role": "Choose Role",
       "role_desc": "Role Description"
@@ -56,7 +56,8 @@
       "bpro": "BPRO",
       "status": "Status",
       "desc": "Description",
-      "kick_off": "Kick Off"
+      "kick_off": "Kick Off",
+      "choose_app": "Choose Application"
     },
     "edit": "Edit Project",
     "detail": "Project Details",
