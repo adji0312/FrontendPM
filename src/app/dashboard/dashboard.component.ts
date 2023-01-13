@@ -13,6 +13,7 @@ import { UserService } from '../user/user.service';
 export class DashboardComponent implements OnInit {
 
   public loginuser: any = {};
+  label = ["KIC", "DEV", "SIT", "READY UAT"];
 
   constructor(
     private backlogDevService: BacklogDevelopmentService,
@@ -43,9 +44,10 @@ export class DashboardComponent implements OnInit {
     this.backlogDevService.countByStatus(this.loginuser.token).subscribe(data => {
 
       statusLabel = data;
+      this.label = data;
 
       for(let i=0; i<statusLabel.length;i++){
-        statusCount[i] = statusLabel[i].slice(-1)
+        statusCount[i] = statusLabel[i].charAt(statusLabel[i].length-2);
       }
 
       new Chart("backlogDev", {
@@ -93,7 +95,7 @@ export class DashboardComponent implements OnInit {
   }
 
   createDevChart(){
-    var statusLabel = ['Sudah di assign : ', 'Belum di assign : '];
+    var statusLabel = ['Sudah di assign ', 'Belum di assign '];
     var statusCount = [0,0];
 
     var unassigned;
@@ -106,8 +108,8 @@ export class DashboardComponent implements OnInit {
           statusCount[0] = PICDevCount;
           statusCount[1] = unassigned;
   
-          statusLabel[0] = String(statusLabel[0].concat(String(statusCount[0])));
-          statusLabel[1] = String(statusLabel[1].concat(String(statusCount[1])));
+          statusLabel[0] = String(statusLabel[0].concat("(" + String(statusCount[0]) + ")"));
+          statusLabel[1] = String(statusLabel[1].concat("(" + String(statusCount[1]) + ")"));
           
           new Chart("devChart", {
             type: 'doughnut',
@@ -162,7 +164,7 @@ export class DashboardComponent implements OnInit {
         roleLabels = data;
 
         for(let i=0; i<roleLabels.length;i++){
-          roleCount[i] = roleLabels[i].slice(-1)
+          roleCount[i] = roleLabels[i].charAt(roleLabels[i].length-2)
         }
 
         new Chart("resourceChart", {
